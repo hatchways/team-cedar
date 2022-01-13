@@ -40,3 +40,7 @@ This is a little description about your project.
 2. Dashboard. Here is a description about what a user can expect to see
 
 ![Dashboard](demo/images/dashboard.png)
+
+## Seed Demo User
+1. Add demo user info from sample.env to your .env file
+2. Navigate to server/seeds and run `node demoSeed.js`
