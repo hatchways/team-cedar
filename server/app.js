@@ -15,6 +15,8 @@ const profileRouter = require("./routes/profile");
 const notificationRouter = require("./routes/notifications");
 const stripeRouter = require("./routes/stripe");
 const availabilityRouter = require("./routes/availability");
+const profileRouter = require("./routes/profile");
+const requestRouter = require("./routes/request");
 
 const { json, urlencoded } = express;
 
@@ -51,6 +53,7 @@ app.use("/profile", profileRouter);
 app.use("/availability/schedule", availabilityRouter);
 app.use("/notifications", notificationRouter);
 app.use("/connect", stripeRouter);
+app.use("/request", requestRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/client/build")));
