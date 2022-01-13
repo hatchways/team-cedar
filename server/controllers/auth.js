@@ -2,6 +2,7 @@ const User = require("../models/User");
 const Profile = require("../models/Profile");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("../utils/generateToken");
+require('dotenv').config({ path: '../.env' })
 
 // @route POST /auth/register
 // @desc Register user
@@ -62,7 +63,15 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
 // @desc Login user
 // @access Public
 exports.loginUser = asyncHandler(async (req, res, next) => {
-  const { email, password } = req.body;
+  let email, password
+  
+  if (req.body.demo === true) {
+    email = process.env.DEMO_USER_EMAIL
+    password = process.env.DEMO_USER_PASSWORD
+  } else {
+    email = req.body.email
+    password = req.body.password
+  }
 
   const user = await User.findOne({ email });
 
