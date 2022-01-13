@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const profileSchema = new mongoose.Schema({
+const requestSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
@@ -28,7 +28,7 @@ const profileSchema = new mongoose.Schema({
     default:false
   },
   paid:{
-    type:Boolean.apply,
+    type:Boolean,
     default:false
   },
   description:{
@@ -39,4 +39,4 @@ const profileSchema = new mongoose.Schema({
   timestamps: true,
 });
 
-module.exports = Profile = mongoose.model("Profile", profileSchema);
+module.exports = Request = mongoose.model("Request", requestSchema);
