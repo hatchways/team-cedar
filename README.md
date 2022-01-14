@@ -43,4 +43,4 @@ This is a little description about your project.
 
 ## Seed Demo User
 1. Add demo user info from sample.env to your .env file
-2. Navigate to server/seeds and run `node demoSeed.js`
+2. Navigate to server directory and run `npm run seed`
