@@ -18,4 +18,14 @@ const protect = (req, res, next) => {
   }
 };
 
-module.exports = protect;
+const addDemoUserCredentials = (req, res, next) => {
+  try {
+    req.body.email = process.env.DEMO_USER_EMAIL
+    req.body.password = process.env.DEMO_USER_PASSWORD
+    next()
+  } catch (err) {
+    res.status(500).send('Error while adding demo user credentials')
+  }
+};
+
+module.exports = { protect, addDemoUserCredentials }
