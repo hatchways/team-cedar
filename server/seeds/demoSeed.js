@@ -1,6 +1,5 @@
 const User = require("../models/User");
 const mongoose = require("mongoose");
-require('dotenv').config({ path: '../.env' })
 
 const users = [
   new User({
@@ -20,12 +19,13 @@ mongoose
   });
 
 
-
 users.map(async (user, index) => {
   await user.save((err, result) => {
     if (index === users.length - 1) {
       console.log("Done");
       mongoose.disconnect();
+      process.exit()
     }
   });
 });
+
