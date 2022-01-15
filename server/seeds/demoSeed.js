@@ -1,12 +1,6 @@
 const User = require("../models/User");
+const Profile = require("../models/Profile");
 const mongoose = require("mongoose");
-
-const users = [
-  new User({
-    name: process.env.DEMO_USER_NAME,
-    email: process.env.DEMO_USER_EMAIL,
-    password: process.env.DEMO_USER_PASSWORD,
-  })]
 
 mongoose
   .connect(process.env.MONGO_URI)
@@ -18,14 +12,38 @@ mongoose
     console.log("db connection ready");
   });
 
+const seedUser = async () => {
+  return await new User({
+    name: process.env.DEMO_USER_NAME,
+    email: process.env.DEMO_USER_EMAIL,
+    password: process.env.DEMO_USER_PASSWORD,
+  }).save()
+}
 
-users.map(async (user, index) => {
-  await user.save((err, result) => {
-    if (index === users.length - 1) {
-      console.log("Done");
-      mongoose.disconnect();
-      process.exit()
-    }
-  });
-});
+const seedProfile = async (user) => {
+  return await new Profile({
+    userId: user.id,
+    name: 'John Doe',
+    description: 'test description',
+    gender: 'male',
+    address: '123 test dr',
+    telephone: '555 555 5656',
+    birthday: Date.now(),
+    photo: 'test photo' 
+  }).save()
+}
 
+async function seedDataAndCloseDbConnection() {
+  try {
+    const user = await seedUser()
+    await seedProfile(user)
+  } catch (e) {
+    console.log('error while seeding data: ', e)
+  } finally {
+    mongoose.disconnect()
+    process.exit()
+  }
+  
+}
+
+seedDataAndCloseDbConnection()
