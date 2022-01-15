@@ -62,3 +62,24 @@ exports.updateRequestById = asyncHandler(async (req, res, next) => {
 })
 
 
+// @route POST /request/:id/pay
+// @desc update payment status
+// @access private
+exports.updateRequestToPaid = asyncHandler(async (req, res, next) => {
+  const {id} = req.params
+  const request = await Request.findById(req.params.id)
+
+  if(request){
+    request.paid = true
+
+    const updateRequest = await request.save()
+
+    res.status(200).json({success:{updateRequest}})
+
+  }else{
+
+    res.status(404)
+    throw new Error('Request not found.')
+
+  }
+})
