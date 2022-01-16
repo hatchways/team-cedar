@@ -51,3 +51,25 @@ exports.markNotificationAsRead = asyncHandler(async (req, res, next) => {
     },
   });
 });
+
+// @route POST /notifications
+// @desc create a new notification
+// @access private
+
+exports.createNotification = asyncHandler(async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+    const { type, title, description } = req.body;
+    const newNotification = await Notification.create({
+      userId,
+      type,
+      title,
+      description,
+    });
+    res.status(201).json({ notification: newNotification });
+  } catch (err) {
+    res.status(400).json({
+      error: err,
+    });
+  }
+});
