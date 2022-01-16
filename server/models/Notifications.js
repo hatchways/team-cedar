@@ -6,7 +6,14 @@ const notificationsSchema = new mongoose.Schema({
     required: true,
     ref: "User",
   },
-  message: {
+  type: {
+    type: String,
+  },
+  title: {
+    type: String,
+    required: true,
+  },
+  description: {
     type: String,
     required: true,
   },
