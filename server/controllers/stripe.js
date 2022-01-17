@@ -20,7 +20,7 @@ exports.config = asyncHandler(async (req, res, next) => {
   const { hourlyPrice, hours } = req.query
 
   res.send({
-    publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
+    publishableKey: process.env.STRIPE_SECRET_KEY,
     hourPrice: hourlyPrice,
     hours: hours,
   });
