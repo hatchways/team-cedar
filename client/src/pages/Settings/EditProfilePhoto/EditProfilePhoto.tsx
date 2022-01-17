@@ -34,7 +34,7 @@ const EditProfilePhoto: React.FC<EditProfilePhotoProps> = ({ header, currentUser
         </Typography>
       </Grid>
       <Grid item xs={12} sx={{ textAlign: 'center', margin: '20px' }}>
-        <Button component="label" size="large" variant="outlined" color="secondary" onChange={onChange}>
+        <Button component="label" size="large" variant="outlined" color="primary" onChange={onChange}>
           Upload A Photo From Your Device
           <input type="file" hidden />
         </Button>
