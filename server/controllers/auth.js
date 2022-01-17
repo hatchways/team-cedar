@@ -62,7 +62,8 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
 // @desc Login user
 // @access Public
 exports.loginUser = asyncHandler(async (req, res, next) => {
-  const { email, password } = req.body;
+
+  const { email, password } = req.body
 
   const user = await User.findOne({ email });
 
