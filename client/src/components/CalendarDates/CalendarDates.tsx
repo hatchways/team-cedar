@@ -26,7 +26,6 @@ const CalendarDates: React.FC<CalendarDateProps> = ({ currentMonth, selectedDate
         setSelectedDate={setSelectedDate}
       />,
     );
-    //To Terminate the loop
     date = addDays(date, 1);
   }
   return (

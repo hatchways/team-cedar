@@ -28,8 +28,10 @@ const BookingContent: React.FC<ContentProps> = ({ img, username, fontSize, date,
       </Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: 1, mb: 1 }}>
         <BookingProfile username={username} img={img} fontSize={fontSize} />
-        <Typography sx={{ color: 'gray', fontWeight: 800, mt: 1, fontSize: 12, pr: 2, pb: 2 }}>
-          {accept ? 'ACCEPTED' : 'DECLINED'}
+        <Typography
+          sx={{ color: 'gray', fontWeight: 800, mt: 1, fontSize: 12, pr: 2, pb: 2, textTransform: 'uppercase' }}
+        >
+          {accept ? 'accepted' : 'declined'}
         </Typography>
       </Box>
     </Box>

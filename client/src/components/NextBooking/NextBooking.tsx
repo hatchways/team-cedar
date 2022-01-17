@@ -17,7 +17,9 @@ const NextBooking = (): JSX.Element => {
   return (
     <BookingWrapper>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: 1, mb: 1 }}>
-        <Typography sx={{ color: 'black', fontWeight: 900, mt: 2, fontSize: 11 }}>YOUR NEXT BOOKING:</Typography>
+        <Typography sx={{ color: 'black', fontWeight: 900, mt: 2, fontSize: 11, textTransform: 'uppercase' }}>
+          your next bookings:
+        </Typography>
         <SettingsIcon color={'disabled'} />
       </Box>
       <Box sx={{ padding: 1, mb: 1 }}>

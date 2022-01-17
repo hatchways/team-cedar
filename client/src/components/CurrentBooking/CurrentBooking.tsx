@@ -49,7 +49,9 @@ const CurrentBooking = (): JSX.Element => {
   return (
     <BookingWrapper marginTop={3}>
       <Box sx={{ padding: 1, mb: 1 }}>
-        <Typography sx={{ color: 'black', fontWeight: 900, mt: 2, fontSize: 11 }}>CURRENT BOOKINGS:</Typography>
+        <Typography sx={{ color: 'black', fontWeight: 900, mt: 2, fontSize: 11, textTransform: 'uppercase' }}>
+          current bookings:
+        </Typography>
       </Box>
       <Box
         sx={{
@@ -79,7 +81,9 @@ const CurrentBooking = (): JSX.Element => {
           ))}
         </Box>
         <Box sx={{ padding: 1, mb: 1 }}>
-          <Typography sx={{ color: 'black', fontWeight: 900, mt: 2, fontSize: 11, mb: 2 }}>PAST BOOKINGS:</Typography>
+          <Typography sx={{ color: 'black', fontWeight: 900, mt: 2, fontSize: 11, mb: 2, textTransform: 'uppercase' }}>
+            past bookings:
+          </Typography>
           <Box>
             {pastBooking.map((item) => (
               <BookingContent
