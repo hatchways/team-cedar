@@ -2,8 +2,11 @@ import React, { useEffect } from 'react';
 import { useAuth } from '../../context/useAuthContext';
 import { useSocket } from '../../context/useSocketContext';
 import { useHistory } from 'react-router-dom';
-import { CircularProgress, Grid, Typography } from '@mui/material';
+import { CircularProgress, Grid, Button, Typography } from '@mui/material';
 import PageContainer from '../../components/PageContainer/PageContainer';
+import ProfileCard from '../../components/ProfileCard/ProfileCard';
+import { Profile } from '../../interface/Profile';
+import { profiles } from '../../mocks/mockProfiles';
 
 export default function Dashboard(): JSX.Element {
   const { loggedInUser } = useAuth();
@@ -24,10 +27,31 @@ export default function Dashboard(): JSX.Element {
   return (
     <PageContainer>
       <Grid container>
-        <Grid xs={12} item>
-          <Typography sx={{ textAlign: 'center' }} variant="h4">
-            Search Profiles
+        <Grid item xs={12} justifyContent="space-around">
+          <Typography sx={{ textAlign: 'center', paddingBottom: '16px' }} variant="h4">
+            All Profiles
           </Typography>
+        </Grid>
+        {profiles.map((profile) => (
+          <Grid
+            item
+            key={profile.userId}
+            xs={4}
+            sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+          >
+            <ProfileCard profile={profile} />
+          </Grid>
+        ))}
+        <Grid item xs={12} textAlign="center">
+          <Button
+            size="large"
+            variant="outlined"
+            onClick={() => {
+              console.log('show more');
+            }}
+          >
+            Show more
+          </Button>
         </Grid>
       </Grid>
     </PageContainer>
