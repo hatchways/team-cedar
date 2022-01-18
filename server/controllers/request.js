@@ -1,5 +1,3 @@
-
-
 const Requset = require("../models/Request");
 const asyncHandler = require("express-async-handler");
 
@@ -10,15 +8,13 @@ exports.getAllRequest = asyncHandler(async (req, res, next) => {
   const userId = req.user.id
   const requests = await Request.find({ userId: userId })
 
-  res.status(200).json({ success: { requests } })
-
+  res.status(200).json({ requests })
 })
 
 // @route POST /request/
 // @desc create new request 
 // @access Private
 exports.createRequest = asyncHandler(async (req, res, next) => {
-
   const { sitterId, start, end, description } = req.body
   const userId = req.user.id
 
@@ -37,28 +33,16 @@ exports.createRequest = asyncHandler(async (req, res, next) => {
 // @desc update request by id
 // @access private
 exports.updateRequestById = asyncHandler(async (req, res, next) => {
+  const { accepted, declined } = req.body
 
-  const { accepted } = req.body
-
-  const request = await Request.findById(req.params.id)
+  let request = await Request.findOneAndUpdate(req.params.id, { accepted, declined }, { new: true })
 
   if (request) {
-
-    // if accepted is fasle, it means that sitter decline this request
-    if (accepted) {
-      request.accepted = accepted
-    } else {
-      request.declined = !accepted
-    }
-
-    const updateRequest = await request.save()
     res.status(200).json({ success: { request } })
-
   } else {
-    res.status(400)
+    res.status(404)
     throw new Error('Request not found.')
   }
-
 })
 
 
