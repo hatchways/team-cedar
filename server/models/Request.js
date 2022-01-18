@@ -33,7 +33,7 @@ const requestSchema = new mongoose.Schema({
   },
   description: {
     String,
-    defualt: ""
+    default: ""
   }
 }, {
   timestamps: true,
