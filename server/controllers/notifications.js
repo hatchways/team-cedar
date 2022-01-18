@@ -60,7 +60,7 @@ exports.createNotification = asyncHandler(async (req, res, next) => {
   try {
     const userId = req.user.id;
     const { type, title, description } = req.body;
-    const newNotification = await Notification.create({
+    const newNotification = await Notifications.create({
       userId,
       type,
       title,
