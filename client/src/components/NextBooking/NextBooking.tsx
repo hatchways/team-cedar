@@ -5,15 +5,16 @@ import BookingProfile from '../BookingProfile/BookingProfile';
 import BookingWrapper from '../BookingWrapper/BookingWrapper';
 import { format } from 'date-fns';
 
-const NextBooking = (): JSX.Element => {
-  const nextBooking = {
-    username: 'Norma Byes',
-    date: new Date(),
-    img: 'https://cdn.pixabay.com/photo/2021/09/12/18/07/robin-6619184_960_720.jpg',
-    from: 10,
-    to: 12,
-    period: 'AM',
-  };
+interface NextBookingProps {
+  username: string;
+  date: Date;
+  img?: string;
+  from: number;
+  to: number;
+  period: string;
+}
+
+const NextBooking = ({ username, date, img, from, to, period }: NextBookingProps): JSX.Element => {
   return (
     <BookingWrapper>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: 1, mb: 1 }}>
@@ -24,12 +25,12 @@ const NextBooking = (): JSX.Element => {
       </Box>
       <Box sx={{ padding: 1, mb: 1 }}>
         <Typography sx={{ color: 'black', fontSize: 18, fontWeight: 500 }}>
-          {format(nextBooking.date, 'dd MMMM yyyy')},&nbsp;{`${nextBooking.from}-${nextBooking.to}`}&nbsp;
-          {nextBooking.period}
+          {format(date, 'dd MMMM yyyy')},&nbsp;{`${from}-${to}`}&nbsp;
+          {period}
         </Typography>
       </Box>
 
-      <BookingProfile username={nextBooking.username} fontSize={16} img={nextBooking.img} />
+      <BookingProfile username={username} fontSize={16} img={img} />
     </BookingWrapper>
   );
 };

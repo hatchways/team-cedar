@@ -55,7 +55,7 @@ const CalendarDatesButton: React.FC<CalendarWrapperProps> = ({ date, currentMont
         }}
         value={date}
         onClick={handleSelectDate}
-        selected={currentDate === formatDateByYear || formatDateByYear === format(selectedDate, 'yyyy-MM-dd')}
+        selected={currentDate === formatDateByYear || date === selectedDate}
       >
         {formatDate}
       </ToggleButton>

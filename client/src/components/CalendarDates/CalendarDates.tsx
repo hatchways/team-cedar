@@ -31,8 +31,8 @@ const CalendarDates: React.FC<CalendarDateProps> = ({ currentMonth, selectedDate
   return (
     <Box
       sx={{
-        margin: 1,
-        padding: 1,
+        margin: { xs: 1, sm: 0, md: 1, lg: 1 },
+        padding: { xs: 0, sm: 0, md: 0, lg: 1 },
       }}
     >
       {dates}

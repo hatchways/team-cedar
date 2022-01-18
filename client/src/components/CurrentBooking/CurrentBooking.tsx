@@ -3,49 +3,22 @@ import { Box, Typography } from '@mui/material';
 import BookingWrapper from '../BookingWrapper/BookingWrapper';
 import BookingContent from '../BookingContent/BookingContent';
 
-const currentBooking = [
-  {
-    id: 1,
-    username: 'Charles Compton',
-    date: new Date(),
-    img: 'https://cdn.pixabay.com/photo/2021/09/12/18/07/robin-6619184_960_720.jpg',
-    from: 7,
-    to: 9,
-    period: 'AM',
-    accept: true,
-  },
-  {
-    id: 2,
-    username: 'Joan Blakeney',
-    date: new Date(2022, 1, 13),
-    from: 8,
-    to: 12,
-    period: 'AM',
-    accept: true,
-  },
-];
-const pastBooking = [
-  {
-    id: 1,
-    username: 'Michael Carhanan',
-    date: new Date(2020, 8, 24),
-    img: 'https://cdn.pixabay.com/photo/2021/09/12/18/07/robin-6619184_960_720.jpg',
-    from: 7,
-    to: 9,
-    period: 'AM',
-    accept: true,
-  },
-  {
-    id: 2,
-    username: 'Blakeney',
-    date: new Date(2020, 3, 6),
-    from: 8,
-    to: 12,
-    period: 'AM',
-    accept: true,
-  },
-];
-const CurrentBooking = (): JSX.Element => {
+type BookingData = {
+  id: number;
+  username: string;
+  date: Date;
+  img?: string;
+  from: number;
+  to: number;
+  period: string;
+  accept: boolean;
+};
+interface CurrentBookingProps {
+  currentData: BookingData[];
+  pastData: BookingData[];
+}
+
+const CurrentBooking = ({ currentData, pastData }: CurrentBookingProps): JSX.Element => {
   return (
     <BookingWrapper marginTop={3}>
       <Box sx={{ padding: 1, mb: 1 }}>
@@ -67,7 +40,7 @@ const CurrentBooking = (): JSX.Element => {
         }}
       >
         <Box>
-          {currentBooking.map((item) => (
+          {currentData.map((item) => (
             <BookingContent
               key={item.id}
               username={item.username}
@@ -85,7 +58,7 @@ const CurrentBooking = (): JSX.Element => {
             past bookings:
           </Typography>
           <Box>
-            {pastBooking.map((item) => (
+            {pastData.map((item) => (
               <BookingContent
                 key={item.id}
                 username={item.username}
