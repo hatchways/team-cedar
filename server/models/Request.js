@@ -15,27 +15,27 @@ const profileSchema = new mongoose.Schema({
     type: Date,
     required: true
   },
-  end:{
-    type:Date,
-    required:true
+  end: {
+    type: Date,
+    required: true
   },
-  accepted:{
-    type:Boolean,
-    default:false
+  accepted: {
+    type: Boolean,
+    default: false
   },
-  declined:{
-    type:Boolean,
-    default:false
+  declined: {
+    type: Boolean,
+    default: false
   },
-  paid:{
-    type:Boolean.apply,
-    default:false
+  paid: {
+    type: Boolean.apply,
+    default: false
   },
-  description:{
+  description: {
     String,
-    default:""
+    default: ""
   }
-},{
+}, {
   timestamps: true,
 });
 
