@@ -26,7 +26,7 @@ const io = socketio(server, {
 });
 
 io.on("connection", (socket) => {
-  console.log("connected");
+  console.log("socket connected");
 });
 
 if (process.env.NODE_ENV === "development") {
