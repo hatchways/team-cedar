@@ -32,7 +32,7 @@ const requestSchema = new mongoose.Schema({
     default: false
   },
   description: {
-    String,
+    type: String,
     default: ""
   }
 }, {
