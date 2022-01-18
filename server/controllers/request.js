@@ -1,5 +1,5 @@
 
-   
+
 const Requset = require("../models/Request");
 const asyncHandler = require("express-async-handler");
 
@@ -7,10 +7,10 @@ const asyncHandler = require("express-async-handler");
 // @desc Get this user all request 
 // @access Private
 exports.getAllRequest = asyncHandler(async (req, res, next) => {
-    const userId  = req.user.id
-    const requests = await Request.find({userId:userId})
+  const userId = req.user.id
+  const requests = await Request.find({ userId: userId })
 
-    res.status(200).json({success:{requests}})
+  res.status(200).json({ success: { requests } })
 
 })
 
@@ -19,14 +19,14 @@ exports.getAllRequest = asyncHandler(async (req, res, next) => {
 // @access Private
 exports.createRequest = asyncHandler(async (req, res, next) => {
 
-  const {sitterId,start,end,description} = req.body
+  const { sitterId, start, end, description } = req.body
   const userId = req.user.id
 
-  const request = await Request.create({userId,sitterId,start,end,description})
+  const request = await Request.create({ userId, sitterId, start, end, description })
 
-  if(request){
-    res.status(201).json({success:{request}})
-  }else{
+  if (request) {
+    res.status(201).json({ success: { request } })
+  } else {
     res.status(400)
     throw new Error('Invalid request data')
   }
@@ -37,24 +37,24 @@ exports.createRequest = asyncHandler(async (req, res, next) => {
 // @desc update request by id
 // @access private
 exports.updateRequestById = asyncHandler(async (req, res, next) => {
-  
-  const {accepted} = req.body
-  
+
+  const { accepted } = req.body
+
   const request = await Request.findById(req.params.id)
 
-  if(request){
-    
+  if (request) {
+
     // if accepted is fasle, it means that sitter decline this request
-    if(accepted){
+    if (accepted) {
       request.accepted = accepted
-    }else{
+    } else {
       request.declined = !accepted
     }
 
     const updateRequest = await request.save()
-    res.status(200).json({success:{request}})
+    res.status(200).json({ success: { request } })
 
-  }else{
+  } else {
     res.status(400)
     throw new Error('Request not found.')
   }
