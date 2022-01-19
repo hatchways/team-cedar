@@ -11,11 +11,10 @@ const logger = require("morgan");
 
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
-
-const profileRouter = require('./routes/profile');
-const requestRouter = require('./routes/request')
+const profileRouter = require("./routes/profile");
+const requestRouter = require("./routes/request");
 const notificationRouter = require("./routes/notifications");
-
+const availabilityRouter = require("./routes/availability");
 
 const { json, urlencoded } = express;
 
@@ -51,7 +50,7 @@ app.use("/users", userRouter);
 app.use("/profile", profileRouter);
 app.use("/request", requestRouter);
 app.use("/notifications", notificationRouter);
-
+app.use("/availability", availabilityRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/client/build")));
