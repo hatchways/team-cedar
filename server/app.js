@@ -14,6 +14,7 @@ const userRouter = require("./routes/user");
 const profileRouter = require("./routes/profile");
 const notificationRouter = require("./routes/notifications");
 const stripeRouter = require("./routes/stripe");
+const availabilityRouter = require("./routes/availability");
 
 const { json, urlencoded } = express;
 
@@ -47,6 +48,7 @@ app.use((req, res, next) => {
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
 app.use("/profile", profileRouter);
+app.use("/availability/schedule", availabilityRouter);
 app.use("/notifications", notificationRouter);
 app.use("/connect", stripeRouter);
 
