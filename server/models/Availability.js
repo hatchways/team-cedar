@@ -45,6 +45,10 @@ const timeSlotSchema = new mongoose.Schema({
 });
 
 const scheduleSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
   timeSlots: {
     type: [timeSlotSchema],
   },
