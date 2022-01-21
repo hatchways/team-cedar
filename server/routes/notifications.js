@@ -14,6 +14,6 @@ router.route("/all").get(protect, getAllNotifications);
 
 router.route("/").post(protect, createNotification);
 
-router.route("/:id").put(protect, markNotificationsAsRead);
+router.route("/read").put(protect, markNotificationsAsRead);
 
 module.exports = router;

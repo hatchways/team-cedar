@@ -31,12 +31,11 @@ exports.getAllNotifications = asyncHandler(async (req, res, next) => {
   });
 });
 
-// @route PUT /notifications/:id
-// @desc mark a notification as read
+// @route PUT /notifications/read
+// @desc mark all notifications for a user as read
 // @access private
 exports.markNotificationsAsRead = asyncHandler(async (req, res, next) => {
   const userId = req.user.id;
-  const { notificationIds } = req.body;
 
   let update = await Notifications.updateMany(
     { userId: userId, read:false },
