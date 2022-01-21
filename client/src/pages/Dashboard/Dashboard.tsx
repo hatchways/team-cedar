@@ -43,13 +43,7 @@ export default function Dashboard(): JSX.Element {
           </Grid>
         ))}
         <Grid item xs={12} textAlign="center">
-          <Button
-            size="large"
-            variant="outlined"
-            onClick={() => {
-              console.log('show more');
-            }}
-          >
+          <Button size="large" variant="outlined">
             Show more
           </Button>
         </Grid>
