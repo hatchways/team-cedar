@@ -35,7 +35,7 @@ exports.createRequest = asyncHandler(async (req, res, next) => {
 exports.updateRequestById = asyncHandler(async (req, res, next) => {
   const { accepted, declined } = req.body
 
-  let request = await Request.findOneAndUpdate(req.params.id, { accepted, declined }, { new: true })
+  const request = await Request.findOneAndUpdate(req.params.id, { accepted, declined }, { new: true })
 
   if (request) {
     res.status(200).json({ success: { request } })
