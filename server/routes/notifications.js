@@ -4,7 +4,7 @@ const protect = require("../middleware/auth");
 const {
   getAllNotifications,
   getUnreadNotifications,
-  markNotificationAsRead,
+  markNotificationsAsRead,
   createNotification,
 } = require("../controllers/notifications");
 
@@ -14,6 +14,6 @@ router.route("/all").get(protect, getAllNotifications);
 
 router.route("/").post(protect, createNotification);
 
-router.route("/:id").put(protect, markNotificationAsRead);
+router.route("/:id").put(protect, markNotificationsAsRead);
 
 module.exports = router;

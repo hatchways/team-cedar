@@ -34,15 +34,15 @@ exports.getAllNotifications = asyncHandler(async (req, res, next) => {
 // @route PUT /notifications/:id
 // @desc mark a notification as read
 // @access private
-exports.markNotificationAsRead = asyncHandler(async (req, res, next) => {
+exports.markNotificationsAsRead = asyncHandler(async (req, res, next) => {
   const userId = req.user.id;
-  const { notificationId } = req.body;
+  const { notificationIds } = req.body;
 
-  let update = await Notifications.findOneAndUpdate(
-    { _id: notificationId },
+  let update = await Notifications.updateMany(
+    { userId: userId, read:false },
     { read: true },
     {
-      new: true, //Returns the document
+      new: true, 
     }
   );
   res.status(200).json({
