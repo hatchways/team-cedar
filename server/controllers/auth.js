@@ -36,12 +36,6 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
       name,
     });
 
-    await Availability.create({
-      petSitterId: user._id,
-      schedules: [],
-      activeSchedule: null,
-    });
-
     const token = generateToken(user._id);
     const secondsInWeek = 604800;
 
