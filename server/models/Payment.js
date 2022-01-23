@@ -39,7 +39,7 @@ const paymentSchema = new mongoose.Schema({
   options
 );
 
-paymentSchema.virtual("totalPayment ").get(function () {
+paymentSchema.virtual("totalPayment").get(function () {
   return (this.hoursOfService.endTime - this.hoursOfService.startTime) * this.rate
 })
 
