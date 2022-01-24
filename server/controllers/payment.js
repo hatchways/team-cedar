@@ -5,8 +5,8 @@ const Payment = require("../models/Payment");
 
 exports.getPayment = asyncHandler(async (req, res, next) => {
   const {id} = req.params;
-  const payment = await Payment.findById(id).populate('totalPayment')
-  if(profile){
+  const payment = await Payment.findById(id);
+  if(payment){
     res.status(200).json({
       success: {   
         payment: payment 
@@ -20,53 +20,47 @@ exports.getPayment = asyncHandler(async (req, res, next) => {
 
 exports.makePayment = asyncHandler(async (req, res, next) => {
   const {id} = req.params;
-  const payment = await  Payment.findById(id);
+  const userId = req.user.id;
+  const payment = await  Payment.findOne({userId:userId , id});
   if (!payment) {
     res.status(404);
     throw new Error("Payment doesn't exist");
   }
-  const makePayment = await Payment.findByIdAndUpdate(
-    id,
-    {
-      paid: true
-    }
-  )
-  if (makePayment){
+  payment.set({paid: true})
+  const updatedPayment = await payment.save()
+  if (updatedPayment){
     res.status(200).json({
       success: {   
-        payment: makePayment,
+        payment: updatedPayment,
         msg: "Payment Complete"
       }
     });
   }
 });
 
-exports.canclePayment =  asyncHandler(async (req, res, next) => {
-  const userID = req.user.id
+exports.cancelPayment =  asyncHandler(async (req, res, next) => {
+  const userId = req.user.id;
   const {id} = req.params;
-  const checkMerchant = await  Payment.find({sitterId: userID});
-  if (!checkMerchant) {
+  const merchantPayment = await  Payment.findOne({id: id, sitterId: userId});
+  if (!merchantPayment) {
     res.status(203);
     throw new Error("Only Merchant Can Cancle");
-  } 
-  const canclePayment = await Payment.findByIdAndUpdate(
-    id,
-    {
-      paid: false
+  }  else { 
+    merchantPayment.set(({paid: false}))
+    const updatedPayment = await merchantPayment.save();
+    if (updatedPayment){
+      res.status(200).json({
+        success: {   
+          payment: updatedPayment,
+          msg: "Payment has been Canceled"
+        }
+      });
     }
-  )
-  if (canclePayment){
-    res.status(200).json({
-      success: {   
-        payment: canclePayment,
-        msg: "Payment Cancle Complete"
-      }
-    });
   }
 })
 
 exports.getAllPayments = asyncHandler(async (req, res, next) => {
-const payment = await Payment.find({userId: req.user.id}).populate('totalPayment');
+const payment = await Payment.find({userId: req.user.id});
 if(payment){
   res.status(200).json({
     success: {   
@@ -77,5 +71,4 @@ if(payment){
   res.status(404);
   throw new Error("Payments Not Found");
 }   
-
 })
