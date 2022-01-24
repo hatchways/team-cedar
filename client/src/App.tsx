@@ -8,6 +8,7 @@ import Login from './pages/Login/Login';
 import Signup from './pages/SignUp/SignUp';
 import Dashboard from './pages/Dashboard/Dashboard';
 import ProfileDetails from './pages/ProfileDetails/ProfileDetails';
+import ManageBooking from './pages/ManageBooking/ManageBooking';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
@@ -30,6 +31,7 @@ function App(): JSX.Element {
                 <Route exact path="/dashboard" component={Dashboard} />
                 <Route exact path="/profile/details/:id" component={ProfileDetails} />
                 <Route path="/profile/settings" component={Settings} />
+                <Route exact path="/sitters" component={ManageBooking} />
                 <Route path="*">
                   <NotFound />
                 </Route>
