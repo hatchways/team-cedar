@@ -28,7 +28,7 @@ function App(): JSX.Element {
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
                 <Route exact path="/dashboard" component={Dashboard} />
-                <Route exact path="/profile/details" component={ProfileDetails} />
+                <Route exact path="/profile/details/:id" component={ProfileDetails} />
                 <Route path="/profile/settings" component={Settings} />
                 <Route path="*">
                   <NotFound />

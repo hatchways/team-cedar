@@ -6,12 +6,10 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CreateIcon from '@mui/icons-material/Create';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 
 export default function ProfileDetails(): JSX.Element {
-  const [dropIn, setDropIn] = React.useState<Date | null>(new Date('2014-08-18T21:11:54'));
-  const [dropOff, setDropOff] = React.useState<Date | null>(new Date('2014-08-18T21:11:54'));
-  const [value, setValue] = React.useState<number | null>(0);
-
   const classes = useStyles();
   const profile = {
     firstName: 'Johnathon',
@@ -23,16 +21,7 @@ export default function ProfileDetails(): JSX.Element {
     rate: '$30/hr',
   };
 
-  const handleChangeDropIn = (newValue: Date | null) => {
-    setDropIn(newValue);
-  };
-  const handleChangeDropOff = (newValue: Date | null) => {
-    setDropOff(newValue);
-  };
-  const sendRequest = () => {
-    console.log('todo for an integration ticket');
-  };
-  const sendMessage = () => {
+  const handleSubmit = () => {
     console.log('todo for an integration ticket');
   };
   return (
@@ -93,41 +82,52 @@ export default function ProfileDetails(): JSX.Element {
               {profile.rate}
             </Typography>
           </Grid>
-          <Grid item>
-            <Rating
-              name="simple-controlled"
-              value={value}
-              onChange={(event, newValue) => {
-                setValue(newValue);
-              }}
-            />
-          </Grid>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <Stack spacing={3}>
-              <Typography align="left" className={classes.titles}>
-                drop-in
-              </Typography>
+          <Formik
+            initialValues={{
+              dropIn: new Date(),
+              dropOff: new Date(),
+            }}
+            validationSchema={Yup.object().shape({
+              dropIn: Yup.date().required('Please enter a dropin date'),
+              dropOff: Yup.date().required('Please enter a dropoff date'),
+            })}
+            onSubmit={handleSubmit}
+          >
+            {({ handleSubmit, handleChange, values, touched, errors, isSubmitting }) => (
+              <form onSubmit={handleSubmit} noValidate>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <Stack spacing={3}>
+                    <Typography align="left" className={classes.titles}>
+                      drop-in
+                    </Typography>
 
-              <DateTimePicker
-                value={dropIn}
-                onChange={handleChangeDropIn}
-                renderInput={(params) => <TextField {...params} />}
-              />
-              <Typography align="left" className={classes.titles}>
-                drop-off
-              </Typography>
+                    <DateTimePicker
+                      value={values.dropIn}
+                      onChange={handleChange}
+                      renderInput={(params) => <TextField {...params} />}
+                    />
+                    <Typography align="left" className={classes.titles}>
+                      drop-off
+                    </Typography>
 
-              <DateTimePicker
-                value={dropOff}
-                onChange={handleChangeDropOff}
-                renderInput={(params) => <TextField {...params} />}
-              />
-            </Stack>
-          </LocalizationProvider>
-          <Button variant="contained" className={classes.button} onClick={sendRequest}>
-            send request
-          </Button>
-          <Button variant="contained" className={classes.button} onClick={sendMessage}>
+                    <DateTimePicker
+                      value={values.dropOff}
+                      onChange={handleChange}
+                      renderInput={(params) => <TextField {...params} />}
+                    />
+                  </Stack>
+                </LocalizationProvider>
+                {isSubmitting ? (
+                  <Typography className={classes.titles}> request sent </Typography>
+                ) : (
+                  <Button variant="contained" className={classes.button1}>
+                    send request
+                  </Button>
+                )}
+              </form>
+            )}
+          </Formik>
+          <Button variant="contained" className={classes.button}>
             message
           </Button>
         </Grid>

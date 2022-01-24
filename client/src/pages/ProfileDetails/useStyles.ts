@@ -110,6 +110,16 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: 'bold',
     },
   },
+  button1: {
+    '&.MuiButton-root': {
+      color: 'white',
+      backgroundColor: '#f14140',
+      width: '140px',
+      margin: '11px',
+      padding: '10px',
+      marginLeft: '32px',
+    },
+  },
 }));
 
 export default useStyles;
