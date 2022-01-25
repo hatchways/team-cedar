@@ -2,20 +2,11 @@ import React from 'react';
 import { Box, Typography } from '@mui/material';
 import BookingWrapper from '../BookingWrapper/BookingWrapper';
 import BookingContent from '../BookingContent/BookingContent';
+import { Request } from '../../interface/RequestApiData';
 
-type BookingData = {
-  id: number;
-  username: string;
-  date: Date;
-  img?: string;
-  from: number;
-  to: number;
-  period: string;
-  accept: boolean;
-};
 interface CurrentBookingProps {
-  currentData: BookingData[];
-  pastData: BookingData[];
+  currentData: Request[];
+  pastData: Request[];
 }
 
 const CurrentBooking = ({ currentData, pastData }: CurrentBookingProps): JSX.Element => {
@@ -42,14 +33,12 @@ const CurrentBooking = ({ currentData, pastData }: CurrentBookingProps): JSX.Ele
         <Box>
           {currentData.map((item) => (
             <BookingContent
-              key={item.id}
-              username={item.username}
-              date={item.date}
-              from={item.from}
-              to={item.to}
-              period={item.period}
-              accept={item.accept}
-              img={item.img}
+              key={item?._id}
+              username={item?.sitterId.name}
+              date={item?.start}
+              from={item?.start}
+              to={item?.end}
+              accept={item?.accepted}
             />
           ))}
         </Box>
@@ -60,14 +49,12 @@ const CurrentBooking = ({ currentData, pastData }: CurrentBookingProps): JSX.Ele
           <Box>
             {pastData.map((item) => (
               <BookingContent
-                key={item.id}
-                username={item.username}
-                date={item.date}
-                from={item.from}
-                to={item.to}
-                period={item.period}
-                accept={item.accept}
-                img={item.img}
+                key={item?._id}
+                username={item?.sitterId.name}
+                date={item?.start}
+                from={item?.start}
+                to={item?.end}
+                accept={item?.accepted}
               />
             ))}
           </Box>
