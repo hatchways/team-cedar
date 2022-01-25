@@ -48,7 +48,6 @@ export default function Login({ handleSubmit }: Props): JSX.Element {
           <FormInput
             id="email"
             label="Email Address"
-            fullWidth
             margin="normal"
             name="email"
             placeholder="Your email"
@@ -57,13 +56,13 @@ export default function Login({ handleSubmit }: Props): JSX.Element {
             helperText={touched.email ? errors.email : ''}
             error={touched.email && Boolean(errors.email)}
             value={values.email}
+            className={classes.inputs}
             onChange={handleChange}
           />
 
           <FormInput
             id="password"
             label="Password"
-            fullWidth
             margin="normal"
             type="password"
             name="password"
@@ -72,6 +71,7 @@ export default function Login({ handleSubmit }: Props): JSX.Element {
             helperText={touched.password ? errors.password : ''}
             error={touched.password && Boolean(errors.password)}
             value={values.password}
+            className={classes.inputs}
             onChange={handleChange}
           />
 

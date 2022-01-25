@@ -15,6 +15,7 @@ import {
 import { AccountType } from '../../types/AccountType';
 
 import lovingSitterLogo from '../../images/logo.svg';
+import lovingSitterLogoSm from '../../images/logoSm.svg';
 import { useStyles } from './useStyles';
 import { NavLink, useLocation } from 'react-router-dom';
 import { Settings, Logout, Person } from '@mui/icons-material';
@@ -123,14 +124,10 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <Grid
-      className={clsx(classes.navbar, location.pathname === '/' && classes.transparentNavbar)}
-      justifyContent="space-between"
-      alignItems="center"
-      container
-    >
+    <Grid className={clsx(classes.navbar, location.pathname === '/' && classes.transparentNavbar)} container>
       <Grid xs={4} md={6} item>
-        <img className={classes.navbarLogo} src={lovingSitterLogo} />
+        <img className={classes.navbarLogoLg} src={lovingSitterLogo} />
+        <img className={classes.navbarLogoSm} src={lovingSitterLogoSm} />
       </Grid>
       <Grid xs={8} md={6} item>
         <Grid container alignItems="center" gap={2} justifyContent="flex-end">
