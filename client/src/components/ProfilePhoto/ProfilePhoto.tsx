@@ -6,7 +6,7 @@ const ProfilePhoto: React.FC<ProfilePhotoProps> = ({ photoURL }) => {
   return (
     <img
       alt="Profile Image"
-      style={{ textAlign: 'center', width: '60%', borderRadius: '50%', overflow: 'hidden' }}
+      style={{ textAlign: 'center', maxHeight: '100%', maxWidth: '100%', borderRadius: '50%', overflow: 'hidden' }}
       src={photoURL}
     />
   );
