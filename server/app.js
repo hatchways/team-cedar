@@ -17,6 +17,11 @@ const stripeRouter = require("./routes/stripe");
 const availabilityRouter = require("./routes/availability");
 const profileRouter = require("./routes/profile");
 const requestRouter = require("./routes/request");
+<<<<<<< HEAD
+=======
+const notificationRouter = require("./routes/notifications");
+const stripeRouter = require("./routes/stripe");
+>>>>>>> 7a775d0 (Created route and controller for Stripe onboarding)
 
 const { json, urlencoded } = express;
 
