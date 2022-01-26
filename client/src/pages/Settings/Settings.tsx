@@ -7,6 +7,7 @@ import { makeStyles } from '@mui/styles';
 import SettingsWrapper from '../../components/SettingsWrapper/SettingsWrapper';
 import EditProfile from './EditProfile/EditProfile';
 import EditProfilePhoto from './EditProfilePhoto/EditProfilePhoto';
+import StripeConnect from '../../components/StripeConnect/StripeConnect';
 import SettingHeader from '../../components/SettingsHeader/SettingsHeader';
 
 const settingsMenu = [
@@ -28,7 +29,7 @@ const settingsMenu = [
   {
     name: 'Payment methods',
     to: '/profile/settings/payment-methods',
-    component: <SettingHeader header="Payment Methods" />,
+    component: <StripeConnect header="Payment Methods" />,
   },
 ];
 
