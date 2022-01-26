@@ -1,7 +1,7 @@
 const { Availability, Schedule } = require("../models/Availability");
 const asyncHandler = require("express-async-handler");
 
-// @route POST /availability/createSchedule
+// @route POST /availability/schedule/createSchedule
 // @desc add a new user schedule
 // @access Private
 exports.createSchedule = asyncHandler(async (req, res, next) => {
@@ -30,7 +30,7 @@ exports.createSchedule = asyncHandler(async (req, res, next) => {
   res.status(201).send({ success: availability });
 });
 
-// @route PUT /availability/:scheduleId
+// @route PUT /availability/schedule/:scheduleId
 // @desc edit user schedules
 // @access Private
 exports.editSchedule = asyncHandler(async (req, res, next) => {
@@ -44,15 +44,31 @@ exports.editSchedule = asyncHandler(async (req, res, next) => {
     throw new Error("Not found");
   }
 
-  schedule.timeSlots = JSON.parse(req.body.schedule);
+  schedule.name = req.schedule.name || schedule.name;
+  schedule.timeSlots = req.schedule.timeSlots;
+
   await schedule.save();
   await availability.save();
 
   res.status(204).send();
 });
 
-// @route GET /availability/active
-// @desc Get user profile data
+// @route DELETE /availability/schedule/:scheduleId
+// @desc Delete user profile data
+// @access Private
+exports.deleteSchedule = asyncHandler(async (req, res, next) => {
+  Schedule.deleteOne({ _id: req.params.scheduleId }, (err) => {
+    if (err) {
+      res.status(404);
+      throw new Error("Not found");
+    }
+  });
+
+  res.status(204).send();
+});
+
+// @route GET /availability/schedule/active
+// @desc Get user's active schedule
 // @access Private
 exports.getActiveSchedule = asyncHandler(async (req, res, next) => {
   const availability = await Availability.findOne({
@@ -93,7 +109,7 @@ exports.getAvailability = asyncHandler(async (req, res, next) => {
   });
 });
 
-// @route PUT /availability/:scheduleId/activate
+// @route PUT /availability/schedule/:scheduleId/activate
 // @desc activate schedule for user
 // @access Private
 exports.setActiveSchedule = asyncHandler(async (req, res, next) => {
