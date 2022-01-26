@@ -35,6 +35,10 @@ const paymentSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  cancel: {
+    type: Boolean,
+    default: false
+  },
 },
   options
 );
