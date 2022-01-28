@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import SettingHeader from '../SettingsHeader/SettingsHeader';
 import { Grid, Button, CircularProgress, Typography } from '@mui/material';
 import stripe from '../../helpers/APICalls/stripe';
@@ -16,14 +16,12 @@ const StripeConnect: React.FC<StripeProps> = ({ header }) => {
   const onClick = async () => {
     setClicked(true);
     const stripeResponse = await stripe();
-    console.log('stripeResponse', stripeResponse);
     if (stripeResponse.success?.stripeAccount.url) {
       setRedirecting(stripeResponse.success.stripeAccount.url);
     }
   };
 
   if (redirecting) {
-    console.log('redirecting to:', redirecting);
     window.location.href = redirecting;
     return null;
   }

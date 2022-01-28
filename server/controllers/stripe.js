@@ -5,7 +5,6 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET);
 // @desc redirect to Stripe onboarding
 // @access Private
 exports.connect = asyncHandler(async (req, res, next) => {
-  console.log("stripe connecting");
   const user = await User.findById(req.user.id);
   const site_url =
     process.env.NODE_ENV === "production"
@@ -24,7 +23,6 @@ exports.connect = asyncHandler(async (req, res, next) => {
       email: user.email,
     })
     .then((userAccount) => {
-      console.log("stripe userAccount", userAccount);
       return stripe.accountLinks.create({
         account: userAccount.id,
         refresh_url: process.env.REFRESH_URL,
@@ -33,10 +31,7 @@ exports.connect = asyncHandler(async (req, res, next) => {
       });
     })
     .then((stripeAccount) => {
-      console.log("stripe response", stripeAccount);
       if (stripeAccount.url) {
-        //success
-        // console.log("redirecting to", stripeAccount.url);
         res.json({
           success: {
             stripeAccount,
