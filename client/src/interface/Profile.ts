@@ -1,10 +1,15 @@
 export interface Profile {
   userId: string;
   name: string;
+  address?: string;
+  rate: number;
   occupation?: string;
   rating?: number;
-  location?: string;
   pricePerHour?: number;
   description?: string;
-  photoURL?: string;
+  photo?: string;
+}
+export interface ProfileApiData {
+  petsitter?: Profile[];
+  error?: { message: string };
 }
