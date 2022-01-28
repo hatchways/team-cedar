@@ -78,7 +78,7 @@ exports.getAllPetSitter = asyncHandler(async (req, res, next) => {
   }
 });
 
-// @route PUT /petsitter/:id/edit
+// @route PATCH /petsitter/:id/edit
 // @desc update PetSitter by id
 // @access private
 exports.updatePetSitterById = asyncHandler(async (req, res, next) => {
@@ -90,24 +90,25 @@ exports.updatePetSitterById = asyncHandler(async (req, res, next) => {
     activatedAvailabilitySchedule,
     rate,
   } = req.body;
-  const petSitter = await PetSitter.findOne({ _id: id, userId });
-  if (!petSitter) {
-    res.status(404);
-    throw new Error("Pet Sitter Not Found");
-  } else {
-    petSitter.set({
+  const petSitter = await PetSitter.findOneAndUpdate(
+    { _id: id, userId },
+    {
       stripeConnectId,
       availabilityId,
       activatedAvailabilitySchedule,
       rate,
-    });
-    const updatedPetSitter = await petSitter.save();
-    if (updatedPetSitter) {
-      return res.status(200).json({
-        success: {
-          petsitter: updatedPetSitter,
-        },
-      });
     }
+  );
+
+  if (!petSitter) {
+    res.status(404);
+    throw new Error("Pet Sitter Not Found");
   }
+
+  return res.status(200).json({
+    success: {
+      petsitter: petSitter,
+    },
+  });
 });
+
