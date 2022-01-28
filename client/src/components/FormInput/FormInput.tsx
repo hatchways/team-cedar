@@ -12,6 +12,7 @@ const StyledInput = styled(InputBase)(({ theme }) => ({
     width: '100%',
     padding: '15px',
   },
+  width: '100%',
 }));
 
 interface FormInputProps {

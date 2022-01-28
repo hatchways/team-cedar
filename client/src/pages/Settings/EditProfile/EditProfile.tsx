@@ -1,5 +1,5 @@
 import { LocalizationProvider, DesktopDatePicker } from '@mui/lab';
-import { Button, CircularProgress, InputLabel } from '@mui/material';
+import { Button, CircularProgress, InputLabel, Theme } from '@mui/material';
 import { Box } from '@mui/system';
 import { Formik, FormikHelpers } from 'formik';
 import FormInput from '../../../components/FormInput/FormInput';
@@ -7,19 +7,33 @@ import SettingHeader from '../../../components/SettingsHeader/SettingsHeader';
 import { User } from '../../../interface/User';
 
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 import editProfile from '../../../helpers/APICalls/editProfile';
 import { useSnackBar } from '../../../context/useSnackbarContext';
 
-const useStyles = makeStyles({
-  dateInput: {
-    borderRadius: 8,
-    border: '1px solid #dbdbdb',
-    fontSize: 16,
-    width: '100%',
-    padding: '15px',
-  },
-});
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    dateInput: {
+      borderRadius: 8,
+      border: '1px solid #dbdbdb',
+      fontSize: 16,
+      width: '100%',
+      padding: '15px',
+    },
+    header: {
+      [theme.breakpoints.down('sm')]: {
+        width: '100px',
+      },
+    },
+    box: {
+      width: 600,
+      margin: '0 auto',
+      [theme.breakpoints.down('sm')]: {
+        width: 300,
+      },
+    },
+  }),
+);
 
 interface EditProfileProps {
   header: string;
@@ -74,12 +88,7 @@ const EditProfile: React.FC<EditProfileProps> = ({ header, currentUser, currentP
   };
 
   return (
-    <Box
-      sx={{
-        width: 600,
-        margin: '0 auto',
-      }}
-    >
+    <Box className={classes.box}>
       <SettingHeader header={header} />
       <Formik
         initialValues={{

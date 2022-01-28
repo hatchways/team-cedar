@@ -1,13 +1,46 @@
 import { cloneElement } from 'react';
 import { useAuth } from '../../context/useAuthContext';
 import { NavLink, Redirect, Route, Switch, useHistory } from 'react-router-dom';
-import { Box, CircularProgress, Grid, Link } from '@mui/material';
+import { Box, CircularProgress, Grid, Link, Theme, Tabs, Tab } from '@mui/material';
 import PageContainer from '../../components/PageContainer/PageContainer';
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 import SettingsWrapper from '../../components/SettingsWrapper/SettingsWrapper';
 import EditProfile from './EditProfile/EditProfile';
 import EditProfilePhoto from './EditProfilePhoto/EditProfilePhoto';
 import SettingHeader from '../../components/SettingsHeader/SettingsHeader';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    activeLink: {
+      fontWeight: 700,
+      color: '#000',
+    },
+    menuLg: {
+      [theme.breakpoints.up('lg')]: {
+        margin: '20px 0',
+      },
+    },
+    grid: {
+      paddingLeft: 18,
+      [theme.breakpoints.down('sm')]: {
+        // display: 'none',
+      },
+    },
+    link: {
+      fontSize: 20,
+      color: '#555',
+      textDecoration: 'none',
+      transition: 'color 100ms ease-in-out',
+      '&:hover': {
+        color: '#000',
+      },
+      [theme.breakpoints.down('sm')]: {
+        fontSize: 15,
+        paddingLeft: 10,
+      },
+    },
+  }),
+);
 
 const settingsMenu = [
   {
@@ -32,13 +65,6 @@ const settingsMenu = [
   },
 ];
 
-const useStyles = makeStyles({
-  activeLink: {
-    fontWeight: 700,
-    color: '#000',
-  },
-});
-
 export default function Settings(): JSX.Element {
   const { loggedInUser, profile } = useAuth();
   const history = useHistory();
@@ -53,29 +79,20 @@ export default function Settings(): JSX.Element {
 
   return (
     <PageContainer>
-      <Grid sx={{ width: '75%', margin: '0 auto' }} container>
-        <Grid xs={3} item>
+      <Grid container columns={{ sm: 12 }}>
+        <Grid
+          xs={3}
+          container
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          className={classes.grid}
+          item
+          spacing={{ sm: 4 }}
+        >
           {settingsMenu.map((item) => (
-            <Box
-              sx={{
-                margin: '20px 0',
-              }}
-              key={item.name}
-            >
-              <Link
-                sx={{
-                  fontSize: 20,
-                  color: '#555',
-                  textDecoration: 'none',
-                  transition: 'color 100ms ease-in-out',
-                  '&:hover': {
-                    color: '#000',
-                  },
-                }}
-                component={NavLink}
-                activeClassName={classes.activeLink}
-                to={item.to}
-              >
+            <Box className={classes.menuLg} key={item.name}>
+              <Link className={classes.link} component={NavLink} activeClassName={classes.activeLink} to={item.to}>
                 {item.name}
               </Link>
             </Box>
