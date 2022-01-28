@@ -15,15 +15,17 @@ const useStyles = makeStyles((theme: Theme) =>
       fontWeight: 700,
       color: '#000',
     },
-    menuLg: {
+    menu: {
       [theme.breakpoints.up('lg')]: {
         margin: '20px 0',
       },
     },
-    grid: {
+    gridLg: {
       paddingLeft: 18,
       [theme.breakpoints.down('sm')]: {
-        // display: 'none',
+        maxWidth: '100%',
+        flex: 'auto',
+        paddingBottom: 20,
       },
     },
     link: {
@@ -79,19 +81,10 @@ export default function Settings(): JSX.Element {
 
   return (
     <PageContainer>
-      <Grid container columns={{ sm: 12 }}>
-        <Grid
-          xs={3}
-          container
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          className={classes.grid}
-          item
-          spacing={{ sm: 4 }}
-        >
+      <Grid container>
+        <Grid xs={3} className={classes.gridLg} item>
           {settingsMenu.map((item) => (
-            <Box className={classes.menuLg} key={item.name}>
+            <Box className={classes.menu} key={item.name}>
               <Link className={classes.link} component={NavLink} activeClassName={classes.activeLink} to={item.to}>
                 {item.name}
               </Link>
