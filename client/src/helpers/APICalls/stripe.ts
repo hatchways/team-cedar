@@ -1,7 +1,7 @@
-import { AuthApiData } from '../../interface/AuthApiData';
+import { StripeData } from '../../interface/StripeData';
 import { FetchOptions } from '../../interface/FetchOptions';
 
-const stripe = async (): Promise<AuthApiData> => {
+const stripe = async (): Promise<StripeData> => {
   const fetchOptions: FetchOptions = {
     method: 'POST',
     credentials: 'include',
