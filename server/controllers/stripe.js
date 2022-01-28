@@ -25,27 +25,26 @@ exports.connect = asyncHandler(async (req, res, next) => {
     })
     .then((userAccount) => {
       console.log("stripe userAccount", userAccount);
-      stripe.accountLinks
-        .create({
-          account: userAccount.id,
-          refresh_url: site_url + "/settings/payment-methods", // /reauth
-          return_url: site_url + "/settings/payment-methods", // /return
-          type: "account_onboarding",
-        })
-        .then((stripeAccount) => {
-          console.log("stripe response", stripeAccount);
-          if (stripeAccount.url) {
-            //success
-            console.log("redirecting to", stripeAccount.url);
-            res.redirect(stripeAccount.url);
-          } else {
-            res.status(500).json({ error: "Unable to connect to Stripe API" });
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-          next();
+      return stripe.accountLinks.create({
+        account: userAccount.id,
+        refresh_url: process.env.REFRESH_URL,
+        return_url: process.env.RETURN_URL,
+        type: "account_onboarding",
+      });
+    })
+    .then((stripeAccount) => {
+      console.log("stripe response", stripeAccount);
+      if (stripeAccount.url) {
+        //success
+        // console.log("redirecting to", stripeAccount.url);
+        res.json({
+          success: {
+            stripeAccount,
+          },
         });
+      } else {
+        res.status(500).json({ error: "Unable to connect to Stripe API" });
+      }
     })
     .catch((error) => {
       console.log(error);
