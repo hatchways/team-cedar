@@ -18,7 +18,7 @@ const profile = {
 
 export default function ProfileDetails(): JSX.Element {
   const [value, setValue] = React.useState(0);
-  const matches = useMediaQuery(theme.breakpoints.down('sm'));
+  const matches = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
