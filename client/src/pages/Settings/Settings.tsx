@@ -1,7 +1,7 @@
 import { cloneElement } from 'react';
 import { useAuth } from '../../context/useAuthContext';
 import { NavLink, Redirect, Route, Switch, useHistory } from 'react-router-dom';
-import { Box, CircularProgress, Grid, Link, Theme, Tabs, Tab } from '@mui/material';
+import { Box, CircularProgress, Grid, Link, Theme } from '@mui/material';
 import PageContainer from '../../components/PageContainer/PageContainer';
 import { createStyles, makeStyles } from '@mui/styles';
 import SettingsWrapper from '../../components/SettingsWrapper/SettingsWrapper';

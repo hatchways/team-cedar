@@ -1,7 +1,7 @@
-import { Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import { theme } from '../../themes/theme';
 
-export const useStyles = makeStyles((theme: Theme) => ({
+export const useStyles = makeStyles(() => ({
   navbar: {
     boxShadow: '4px 4px 13px 7px rgba(217,217,217,0.26)',
     padding: theme.spacing(2),
@@ -22,11 +22,22 @@ export const useStyles = makeStyles((theme: Theme) => ({
       color: theme.palette.primary.main,
     },
     [theme.breakpoints.down('sm')]: {
-      width: 100,
+      display: 'none',
+    },
+  },
+  navbarItemLg: {
+    display: 'none',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
+    },
+  },
+  navbarItemSm: {
+    display: 'block',
+    [theme.breakpoints.up('sm')]: {
+      display: 'none',
     },
   },
   navbarLogoLg: {
-    width: 180,
     display: 'none',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
