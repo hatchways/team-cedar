@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import SettingHeader from '../SettingsHeader/SettingsHeader';
+import { User } from '../../interface/User';
 import { Grid, Button, CircularProgress, Typography } from '@mui/material';
 import stripe from '../../helpers/APICalls/stripe';
 
 interface StripeProps {
   header: string;
+  currentUser?: User;
+  currentProfile?: any;
 }
 
-const StripeConnect: React.FC<StripeProps> = ({ header }) => {
-  const stripeExists = false;
+const StripeConnect: React.FC<StripeProps> = ({ header, currentUser, currentProfile }) => {
+  const stripeExists = !!currentProfile.stripeConnectId;
   const [clicked, setClicked] = useState(false);
   const [redirecting, setRedirecting] = useState<string>('');
 
@@ -23,7 +26,7 @@ const StripeConnect: React.FC<StripeProps> = ({ header }) => {
 
   if (redirecting) {
     window.location.href = redirecting;
-    return null;
+    return <CircularProgress />;
   }
 
   return (
