@@ -1,6 +1,8 @@
 import { FormikHelpers } from 'formik';
 import login from '../../helpers/APICalls/login';
+import loginDemoUser from '../../helpers/APICalls/loginDemoUser';
 import LoginForm from './LoginForm/LoginForm';
+import DemoUserLogin from './DemoUserLogin/DemoUserLogin';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
 import PageContainer from '../../components/PageContainer/PageContainer';
@@ -31,10 +33,25 @@ export default function Login(): JSX.Element {
     });
   };
 
+  const handleDemoLogin = () => {
+    loginDemoUser().then((data) => {
+      if (data.error) {
+        updateSnackBarMessage(data.error.message);
+      } else if (data.success) {
+        updateLoginContext(data.success);
+      } else {
+        // should not get here from backend but this catch is for an unknown issue
+        console.error({ data });
+        updateSnackBarMessage('An unexpected error occurred. Please try again');
+      }
+    });
+  };
+
   return (
     <PageContainer>
       <AuthPageWrapper header="Log in">
         <LoginForm handleSubmit={handleSubmit} />
+        <DemoUserLogin handleSubmit={handleDemoLogin} />
         <AuthPageFooter text="Not a member?" anchorText="Sign up" anchorTo="/signup" />
       </AuthPageWrapper>
     </PageContainer>

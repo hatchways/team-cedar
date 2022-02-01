@@ -1,5 +1,7 @@
 import { FormikHelpers } from 'formik';
 import register from '../../helpers/APICalls/register';
+import loginDemoUser from '../../helpers/APICalls/loginDemoUser';
+import DemoUserLogin from '../Login/DemoUserLogin/DemoUserLogin';
 import SignUpForm from './SignUpForm/SignUpForm';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
@@ -32,10 +34,25 @@ export default function Register(): JSX.Element {
     });
   };
 
+  const handleDemoLogin = () => {
+    loginDemoUser().then((data) => {
+      if (data.error) {
+        updateSnackBarMessage(data.error.message);
+      } else if (data.success) {
+        updateLoginContext(data.success);
+      } else {
+        // should not get here from backend but this catch is for an unknown issue
+        console.error({ data });
+        updateSnackBarMessage('An unexpected error occurred. Please try again');
+      }
+    });
+  };
+
   return (
     <PageContainer>
       <AuthPageWrapper header="Sign up">
         <SignUpForm handleSubmit={handleSubmit} />
+        <DemoUserLogin handleSubmit={handleDemoLogin} />
         <AuthPageFooter text="Already a member?" anchorText="Login" anchorTo="/login" />
       </AuthPageWrapper>
     </PageContainer>

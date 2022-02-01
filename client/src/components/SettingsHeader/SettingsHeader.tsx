@@ -13,7 +13,7 @@ const SettingHeader: React.FC<SettingHeaderProps> = ({ header }) => {
         sx={{
           fontWeight: 700,
           textAlign: 'center',
-          marginBottom: 8,
+          marginBottom: '8px',
         }}
       >
         {header}
