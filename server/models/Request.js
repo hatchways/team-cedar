@@ -36,7 +36,8 @@ const requestSchema = new mongoose.Schema(
       String,
       default: "",
     },
-  }, {
+  },
+  {
     timestamps: true,
   }
 );
