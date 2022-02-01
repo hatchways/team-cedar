@@ -16,6 +16,15 @@ const BookingContent: React.FC<ContentProps> = ({ img, username, fontSize, date,
   const getDate = new Date(date);
   const getFrom = new Date(from);
   const getTo = new Date(to);
+
+  from: number;
+  to: number;
+  period: string;
+  accept: boolean;
+}
+
+const BookingContent: React.FC<ContentProps> = ({ img, username, fontSize, date, from, to, period, accept }) => {
+
   return (
     <Box
       sx={{ background: '#fff', padding: 1, borderRadius: 1, mb: 1, maxHeight: 120 }}
@@ -24,8 +33,11 @@ const BookingContent: React.FC<ContentProps> = ({ img, username, fontSize, date,
     >
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography sx={{ color: 'black', fontWeight: 500, mt: 2, ml: 2, fontSize: 14 }}>
+
           {format(getDate, 'dd MMMM yyyy')},&nbsp;{`${format(getFrom, 'hh')}-${format(getTo, 'hh')}`}&nbsp;
           {format(getTo, 'a')}
+          {format(date, 'dd MMMM yyyy')},&nbsp;{`${from}-${to}`}&nbsp;{period}
+
         </Typography>
         <SettingsIcon fontSize="small" color={'disabled'} />
       </Box>

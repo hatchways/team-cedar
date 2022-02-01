@@ -18,6 +18,14 @@ const NextBooking = ({ username, date, img, from, to, period }: NextBookingProps
   const getDate = new Date(date);
   const getFrom = new Date(from);
   const getTo = new Date(to);
+
+  from: number;
+  to: number;
+  period: string;
+}
+
+const NextBooking = ({ username, date, img, from, to, period }: NextBookingProps): JSX.Element => {
+
   return (
     <BookingWrapper>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', padding: 1, mb: 1 }}>
@@ -28,8 +36,11 @@ const NextBooking = ({ username, date, img, from, to, period }: NextBookingProps
       </Box>
       <Box sx={{ padding: 1, mb: 1 }}>
         <Typography sx={{ color: 'black', fontSize: 18, fontWeight: 500 }}>
+
           {format(getDate, 'dd MMMM yyyy')},&nbsp;{`${format(getFrom, 'hh')}-${format(getTo, 'hh')}`}&nbsp;
           {format(getTo, 'a')}
+          {format(date, 'dd MMMM yyyy')},&nbsp;{`${from}-${to}`}&nbsp;
+          {period}
         </Typography>
       </Box>
 
