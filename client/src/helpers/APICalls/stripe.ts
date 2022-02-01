@@ -6,7 +6,7 @@ const stripe = async (): Promise<StripeData> => {
     method: 'POST',
     credentials: 'include',
   };
-  return await fetch(`/connect/stripe`, fetchOptions)
+  return fetch(`/connect/stripe`, fetchOptions)
     .then((res) => res.json())
     .catch(() => ({
       error: { message: 'Unable to connect to server. Please try again' },
