@@ -1,6 +1,5 @@
 const asyncHandler = require("express-async-handler");
 const PetSitter = require("../models/PetSitter");
-const stripe = require("stripe")(process.env.STRIPE_SECRET);
 const { createStripeAccountLink } = require("../utils/stripeUtils");
 
 // @route POST /connect/stripe
