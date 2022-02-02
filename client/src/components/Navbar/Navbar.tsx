@@ -11,21 +11,15 @@ import {
   Menu,
   MenuItem as DropdownMenuItem,
   styled,
-  Drawer,
-  Box,
-  List,
-  ListItem,
 } from '@mui/material';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+
 import { AccountType } from '../../types/AccountType';
 
 import lovingSitterLogo from '../../images/logo.svg';
 import lovingSitterLogoSm from '../../images/logoSm.svg';
 import { useStyles } from './useStyles';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Settings, Logout, Person } from '@mui/icons-material';
-import MenuIcon from '@mui/icons-material/Menu';
 
 const NavbarButton = styled(Button)({
   padding: '15px 0',
@@ -102,12 +96,9 @@ const MenuItem: React.FC<{
 };
 
 const Navbar: React.FC = () => {
-  const location = useLocation();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [state, setState] = React.useState({
-    right: false,
-  });
+
   const { loggedInUser, logout } = useAuth();
   const open = Boolean(anchorEl);
 
@@ -124,17 +115,6 @@ const Navbar: React.FC = () => {
     logout();
   };
 
-  const toggleDrawer = (anchor: Anchor, open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
-    if (
-      event.type === 'keydown' &&
-      ((event as React.KeyboardEvent).key === 'Tab' || (event as React.KeyboardEvent).key === 'Shift')
-    ) {
-      return;
-    }
-
-    setState({ ...state, [anchor]: open });
-  };
-
   const renderMenuItems = () => {
     // TODO: conditionally render based on profile type
     return menuItems.map((menu) => {
@@ -146,109 +126,67 @@ const Navbar: React.FC = () => {
     });
   };
 
-  const list = (anchor: Anchor) => (
-    <Box
-      sx={{ width: 250 }}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
-
   return (
-    <Grid className={clsx(classes.navbar, location.pathname === '/' && classes.transparentNavbar)} container>
-      <Grid xs={4} md={6} item>
-        <img className={classes.navbarLogoLg} style={{ width: 180 }} src={lovingSitterLogo} />
-        <img className={classes.navbarLogoSm} src={lovingSitterLogoSm} />
+    <Grid className={clsx(classes.navbar)} container>
+      <Grid xs={2} md={6} item>
+        <NavLink to="/dashboard">
+          <img className={classes.navbarLogoLg} style={{ width: 180 }} src={lovingSitterLogo} />
+          <img className={classes.navbarLogoSm} src={lovingSitterLogoSm} />
+        </NavLink>
       </Grid>
-      <Grid xs={8} md={6} item>
+      <Grid xs={10} md={6} item>
         <Grid container alignItems="center" gap={2} justifyContent="flex-end">
           {renderMenuItems()}
           {loggedInUser && (
-            <Grid xs={2} item className={classes.navbarLogoLg}>
-              <>
-                <IconButton
-                  size="large"
-                  aria-label="account profile picture"
-                  aria-controls="menu-navbar"
-                  arais-haspopup="true"
-                  onClick={handleMenuOpen}
-                  color="inherit"
-                >
-                  <img style={{ width: 50 }} src={`https://robohash.org/${loggedInUser.email}`} />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={open}
-                  onClose={handleClose}
-                >
-                  <DropdownMenuItem component={NavLink} to="/profile/settings" onClick={handleClose}>
-                    <ListItemIcon>
-                      <Settings fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Settings</ListItemText>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={handleClose}>
-                    <ListItemIcon>
-                      <Person fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Profile</ListItemText>
-                  </DropdownMenuItem>
-                  <Divider />
-                  <DropdownMenuItem onClick={handleLogout}>
-                    <ListItemIcon>
-                      <Logout fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Logout</ListItemText>
-                  </DropdownMenuItem>
-                </Menu>
-              </>
-            </Grid>
+            <>
+              <IconButton
+                size="large"
+                aria-label="account profile picture"
+                aria-controls="menu-navbar"
+                arais-haspopup="true"
+                onClick={handleMenuOpen}
+                color="inherit"
+              >
+                <img style={{ width: 50 }} src={`https://robohash.org/${loggedInUser.email}`} />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'right',
+                }}
+                disableAutoFocusItem
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={open}
+                onClose={handleClose}
+              >
+                <DropdownMenuItem component={NavLink} to="/profile/settings" onClick={handleClose}>
+                  <ListItemIcon>
+                    <Settings fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>Settings</ListItemText>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleClose}>
+                  <ListItemIcon>
+                    <Person fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>Profile</ListItemText>
+                </DropdownMenuItem>
+                <Divider />
+                <DropdownMenuItem onClick={handleLogout}>
+                  <ListItemIcon>
+                    <Logout fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>Logout</ListItemText>
+                </DropdownMenuItem>
+              </Menu>
+            </>
           )}
-        </Grid>
-        <Grid container alignItems="center" gap={2} justifyContent="flex-end">
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            className={classes.navbarLogoSm}
-            aria-label="menu"
-            sx={{ mr: 2 }}
-            onClick={toggleDrawer('right', true)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Drawer anchor={'right'} open={state['right']} onClose={toggleDrawer('right', false)}>
-            {list('right')}
-          </Drawer>
         </Grid>
       </Grid>
     </Grid>

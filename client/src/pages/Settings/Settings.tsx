@@ -9,41 +9,12 @@ import EditProfile from './EditProfile/EditProfile';
 import EditProfilePhoto from './EditProfilePhoto/EditProfilePhoto';
 import SettingHeader from '../../components/SettingsHeader/SettingsHeader';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    activeLink: {
-      fontWeight: 700,
-      color: '#000',
-    },
-    menu: {
-      [theme.breakpoints.up('lg')]: {
-        margin: '20px 0',
-      },
-    },
-    gridLg: {
-      paddingLeft: 18,
-      [theme.breakpoints.down('sm')]: {
-        maxWidth: '100%',
-        flex: 'auto',
-        paddingBottom: 20,
-      },
-    },
-    link: {
-      fontSize: 20,
-      color: '#555',
-      textDecoration: 'none',
-      transition: 'color 100ms ease-in-out',
-      '&:hover': {
-        color: '#000',
-      },
-      [theme.breakpoints.down('sm')]: {
-        fontSize: 15,
-        paddingLeft: 10,
-      },
-    },
-  }),
-);
-
+const useStyles = makeStyles({
+  activeLink: {
+    fontWeight: 700,
+    color: '#000',
+  },
+});
 const settingsMenu = [
   {
     name: 'Edit profile',
@@ -81,17 +52,35 @@ export default function Settings(): JSX.Element {
 
   return (
     <PageContainer>
-      <Grid container>
-        <Grid xs={3} className={classes.gridLg} item>
+      <Grid sx={{ width: { xs: '90%', sm: '90%', md: '90%', lg: '75%' }, margin: '0 auto' }} container>
+        <Grid xs={2} md={3} lg={3} item>
           {settingsMenu.map((item) => (
-            <Box className={classes.menu} key={item.name}>
-              <Link className={classes.link} component={NavLink} activeClassName={classes.activeLink} to={item.to}>
+            <Box
+              sx={{
+                margin: '20px 0',
+              }}
+              key={item.name}
+            >
+              <Link
+                sx={{
+                  fontSize: 20,
+                  color: '#555',
+                  textDecoration: 'none',
+                  transition: 'color 100ms ease-in-out',
+                  '&:hover': {
+                    color: '#000',
+                  },
+                }}
+                component={NavLink}
+                activeClassName={classes.activeLink}
+                to={item.to}
+              >
                 {item.name}
               </Link>
             </Box>
           ))}
         </Grid>
-        <Grid xs={9} item>
+        <Grid xs={10} md={9} lg={9} item sx={{ p: 2 }}>
           <Switch>
             <Route exact path="/profile/settings">
               <Redirect to="/profile/settings/edit-profile" />

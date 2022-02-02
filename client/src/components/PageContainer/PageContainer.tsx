@@ -9,7 +9,8 @@ const PageContainer: React.FC<PageContainerProps> = ({ children }) => {
   return (
     <Box
       sx={{
-        width: '100%',
+        minWidth: 800,
+        width: '95%',
         margin: '40px auto',
       }}
     >

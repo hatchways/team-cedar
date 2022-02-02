@@ -8,10 +8,7 @@ export const useStyles = makeStyles(() => ({
     background: 'white',
     justifyContent: 'space-between',
     alignItems: 'center',
-  },
-  transparentNavbar: {
-    boxShadow: 'none',
-    background: 'none',
+    minWidth: 800,
   },
   navbarItem: {
     color: theme.palette.grey[900],
@@ -21,22 +18,12 @@ export const useStyles = makeStyles(() => ({
     '&:hover': {
       color: theme.palette.primary.main,
     },
+    fontSize: 16,
     [theme.breakpoints.down('sm')]: {
-      display: 'none',
+      fontSize: 22,
     },
   },
-  navbarItemLg: {
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
-  },
-  navbarItemSm: {
-    display: 'block',
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    },
-  },
+
   navbarLogoLg: {
     display: 'none',
     [theme.breakpoints.up('sm')]: {

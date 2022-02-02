@@ -26,7 +26,6 @@ const SettingHeader: React.FC<SettingHeaderProps> = ({ header }) => {
           textAlign: 'center',
           marginBottom: '8px',
         }}
-        className={classes.header}
       >
         {header}
       </Typography>
