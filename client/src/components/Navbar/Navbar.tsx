@@ -61,7 +61,7 @@ const menuItems = [
       </NavbarButton>
     ),
     resource: '/login',
-    canView: null,
+    canView: [AccountType.PET_SITTER, AccountType.PET_OWNER],
     authenticated: false,
   },
   {
@@ -71,7 +71,7 @@ const menuItems = [
       </NavbarButton>
     ),
     resource: '/signup',
-    canView: null,
+    canView: [AccountType.PET_SITTER, AccountType.PET_OWNER],
     authenticated: false,
   },
 ];
@@ -113,6 +113,7 @@ const Navbar: React.FC = () => {
   };
   console.log(profile);
   const filterMenuItems = menuItems.filter((item) => item?.canView?.includes(profile?.accountType || 'pet_owner'));
+  console.log(filterMenuItems);
   const renderMenuItems = () => {
     return filterMenuItems.map((menu) => {
       if (menu.authenticated) {
