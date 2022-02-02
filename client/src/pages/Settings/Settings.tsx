@@ -35,7 +35,7 @@ const settingsMenu = [
   //   component: <StripeConnect header="Payment Methods" />,
   // },
   {
-    name: 'Payment methods',
+    name: 'Payment',
     to: '/profile/settings/payment-methods',
     canView: [AccountType.PET_OWNER],
     component: <PaymentMethod header="Payment Methods" />,
