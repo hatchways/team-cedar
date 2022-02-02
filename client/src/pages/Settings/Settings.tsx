@@ -9,7 +9,8 @@ import EditProfile from './EditProfile/EditProfile';
 import EditProfilePhoto from './EditProfilePhoto/EditProfilePhoto';
 import StripeConnect from '../../components/StripeConnect/StripeConnect';
 import SettingHeader from '../../components/SettingsHeader/SettingsHeader';
-
+import PaymentMethod from '../../components/PaymentMethod/PaymentMethod';
+import { AccountType } from '../../types/AccountType';
 const settingsMenu = [
   {
     name: 'Edit profile',
@@ -26,10 +27,18 @@ const settingsMenu = [
     to: '/profile/settings/availability',
     component: <SettingHeader header="Availability" />,
   },
+  // To use after implementing role base nav bar
+  // {
+  //   name: 'Payment methods',
+  //   to: '/profile/settings/payment-methods',
+  //   canView: [AccountType.PET_SITTER],
+  //   component: <StripeConnect header="Payment Methods" />,
+  // },
   {
     name: 'Payment methods',
     to: '/profile/settings/payment-methods',
-    component: <StripeConnect header="Payment Methods" />,
+    canView: [AccountType.PET_OWNER],
+    component: <PaymentMethod header="Payment Methods" />,
   },
 ];
 
@@ -54,7 +63,7 @@ export default function Settings(): JSX.Element {
 
   return (
     <PageContainer>
-      <Grid sx={{ width: '75%', margin: '0 auto' }} container>
+      <Grid sx={{ width: { xs: '90%', sm: '90%', md: '90%', lg: '75%' }, margin: '0 auto' }} container>
         <Grid xs={3} item>
           {settingsMenu.map((item) => (
             <Box

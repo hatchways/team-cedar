@@ -14,6 +14,7 @@ const userRouter = require("./routes/user");
 const profileRouter = require("./routes/profile");
 const notificationRouter = require("./routes/notifications");
 const stripeRouter = require("./routes/stripe");
+const paymentMethodRoute = require('./routes/paymentMethod');
 
 const { json, urlencoded } = express;
 
@@ -49,6 +50,7 @@ app.use("/users", userRouter);
 app.use("/profile", profileRouter);
 app.use("/notifications", notificationRouter);
 app.use("/connect", stripeRouter);
+app.use("/payment_methods", paymentMethodRoute);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/client/build")));
