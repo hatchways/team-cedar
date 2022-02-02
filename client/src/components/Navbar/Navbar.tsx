@@ -111,15 +111,12 @@ const Navbar: React.FC = () => {
     handleClose();
     logout();
   };
-
+  console.log(profile);
+  const filterMenuItems = menuItems.filter((item) => item?.canView?.includes(profile?.accountType || 'pet_owner'));
   const renderMenuItems = () => {
-    return menuItems.map((menu) => {
+    return filterMenuItems.map((menu) => {
       if (menu.authenticated) {
-        if (profile) {
-          if (!menu.canView || menu.canView == profile.accountType || menu.canView.length > 1) {
-            return loggedInUser && <MenuItem key={menu.resource} {...menu} />;
-          }
-        }
+        return loggedInUser && <MenuItem key={menu.resource} {...menu} />;
       } else {
         return !loggedInUser && <MenuItem key={menu.resource} {...menu} />;
       }
