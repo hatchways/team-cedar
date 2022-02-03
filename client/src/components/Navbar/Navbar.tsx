@@ -95,10 +95,11 @@ const Navbar: React.FC = () => {
   const location = useLocation();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
   const { loggedInUser, profile, logout } = useAuth();
 
   const open = Boolean(anchorEl);
-
+  const getProfileId = profile?._id;
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -142,7 +143,7 @@ const Navbar: React.FC = () => {
       <Grid xs={8} md={6} item>
         <Grid container alignItems="center" gap={2} justifyContent="flex-end">
           {renderMenuItems()}
-          {loggedInUser && (
+          {loggedInUser && profile && (
             <Grid xs={2} item>
               <>
                 <IconButton
@@ -176,7 +177,7 @@ const Navbar: React.FC = () => {
                     </ListItemIcon>
                     <ListItemText>Settings</ListItemText>
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={handleClose}>
+                  <DropdownMenuItem component={NavLink} to={`/profile/details/${getProfileId}`} onClick={handleClose}>
                     <ListItemIcon>
                       <Person fontSize="small" />
                     </ListItemIcon>
