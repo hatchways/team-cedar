@@ -38,7 +38,7 @@ exports.createPaymentSession = asyncHandler(async (req, res, next) => {
 exports.listPaymentSession = asyncHandler(async (req, res, next) => {
   const id = req.user.id;
   const getProfile = await Profile.findOne({ userId: id });
-  console.log(getProfile?.stripeCustomerId);
+
   if (!getProfile.stripeCustomerId) {
     res.status(404);
     throw Error("No Payment Account");
