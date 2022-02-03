@@ -111,9 +111,9 @@ const Navbar: React.FC = () => {
     handleClose();
     logout();
   };
-  console.log(profile);
+
   const filterMenuItems = menuItems.filter((item) => item?.canView?.includes(profile?.accountType || 'pet_owner'));
-  console.log(filterMenuItems);
+
   const renderMenuItems = () => {
     return filterMenuItems.map((menu) => {
       if (menu.authenticated) {
