@@ -16,7 +16,7 @@ type availability = {
   day: string[];
 };
 interface ProfileDetailProps {
-  name: string;
+  name?: string;
   descrption?: string;
   location?: string;
   availability?: availability;

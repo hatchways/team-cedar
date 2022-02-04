@@ -4,21 +4,12 @@ import { theme } from '../../themes/theme';
 import TabPanel from '../../components/TabPanel/TabPanel';
 import ProfileDetail from '../../components/ProfileDetail/ProfileDetail';
 import ProfileRequest from '../../components/ProfileRequest/ProfileRequest';
-
-const profile = {
-  name: 'Johnathon Smith',
-  descrption: 'Loving Pet Sitter',
-  location: 'Toronto',
-  availability: {
-    day: ['Monday', 'Tuesday', 'Wednesday', 'Thuesday', 'Friday'],
-  },
-  rate: 30,
-  type: 'PetSitter',
-};
+import { useAuth } from '../../context/useAuthContext';
 
 export default function ProfileDetails(): JSX.Element {
   const [value, setValue] = React.useState(0);
   const matches = useMediaQuery(theme.breakpoints.down('md'));
+  const { profile } = useAuth();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -38,10 +29,11 @@ export default function ProfileDetails(): JSX.Element {
           }}
         >
           <ProfileDetail
-            name={profile.name}
-            descrption={profile.descrption}
-            location={profile.location}
-            type={profile.type}
+            name={profile?.name}
+            descrption={profile?.description}
+            location={profile?.address}
+            photoURL={profile?.photo}
+            type={profile?.type}
           />
         </Paper>
       </Grid>
@@ -69,11 +61,11 @@ export default function ProfileDetails(): JSX.Element {
                 }}
               >
                 <ProfileDetail
-                  name={profile.name}
-                  descrption={profile.descrption}
-                  location={profile.location}
-                  availability={profile.availability}
-                  type={profile.type}
+                  name={profile?.name}
+                  descrption={profile?.description}
+                  location={profile?.address}
+                  photoURL={profile?.photo}
+                  type={profile?.type}
                 />
               </Paper>
             </Grid>
@@ -90,7 +82,7 @@ export default function ProfileDetails(): JSX.Element {
                   padding: { xs: 1, sm: 0, md: 2, lg: 2 },
                 }}
               >
-                <ProfileRequest rate={profile.rate} />
+                <ProfileRequest rate={profile?.rate} sitterId={profile._id} />
               </Paper>
             </Grid>
           </TabPanel>
@@ -109,11 +101,11 @@ export default function ProfileDetails(): JSX.Element {
               }}
             >
               <ProfileDetail
-                name={profile.name}
-                descrption={profile.descrption}
-                location={profile.location}
-                availability={profile.availability}
-                type={profile.type}
+                name={profile?.name}
+                descrption={profile?.description}
+                location={profile?.address}
+                photoURL={profile?.photo}
+                type={profile?.type}
               />
             </Paper>
           </Grid>
@@ -129,7 +121,7 @@ export default function ProfileDetails(): JSX.Element {
                 padding: { xs: 1, sm: 0, md: 2, lg: 2 },
               }}
             >
-              <ProfileRequest rate={profile.rate} />
+              <ProfileRequest rate={profile?.rate} sitterId={profile._id} />
             </Paper>
           </Grid>
         </>
