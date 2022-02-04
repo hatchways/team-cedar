@@ -1,4 +1,4 @@
-const Requset = require("../models/Request");
+const Request = require("../models/Request");
 const asyncHandler = require("express-async-handler");
 
 // @route GET /request/
@@ -6,8 +6,13 @@ const asyncHandler = require("express-async-handler");
 // @access Private
 exports.getAllRequest = asyncHandler(async (req, res, next) => {
   const userId = req.user.id
-  const requests = await Request.find({ userId: userId })
-
+  const requests = await Request.find({ userId: userId }).populate({
+    path: "sitterId", 
+    populate: {
+       path: "name" 
+    },
+    select: { body: 1 }
+ });
   res.status(200).json({ requests })
 })
 

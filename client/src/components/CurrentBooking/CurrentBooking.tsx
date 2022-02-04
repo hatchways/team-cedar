@@ -3,6 +3,13 @@ import { Box, Typography } from '@mui/material';
 import BookingWrapper from '../BookingWrapper/BookingWrapper';
 import BookingContent from '../BookingContent/BookingContent';
 
+import { Request } from '../../interface/RequestApiData';
+
+interface CurrentBookingProps {
+  currentData: Request[];
+  pastData: Request[];
+
+
 type BookingData = {
   id: number;
   username: string;
@@ -42,6 +49,14 @@ const CurrentBooking = ({ currentData, pastData }: CurrentBookingProps): JSX.Ele
         <Box>
           {currentData.map((item) => (
             <BookingContent
+
+              key={item?._id}
+              username={item?.sitterId.name}
+              date={item?.start}
+              from={item?.start}
+              to={item?.end}
+              accept={item?.accepted}
+
               key={item.id}
               username={item.username}
               date={item.date}
@@ -50,6 +65,7 @@ const CurrentBooking = ({ currentData, pastData }: CurrentBookingProps): JSX.Ele
               period={item.period}
               accept={item.accept}
               img={item.img}
+
             />
           ))}
         </Box>
@@ -60,6 +76,13 @@ const CurrentBooking = ({ currentData, pastData }: CurrentBookingProps): JSX.Ele
           <Box>
             {pastData.map((item) => (
               <BookingContent
+
+                key={item?._id}
+                username={item?.sitterId.name}
+                date={item?.start}
+                from={item?.start}
+                to={item?.end}
+                accept={item?.accepted}
                 key={item.id}
                 username={item.username}
                 date={item.date}
