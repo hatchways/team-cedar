@@ -1,15 +1,15 @@
 const mongoose = require("mongoose");
 
-const profileSchema = new mongoose.Schema({
+const requestSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: 'User'
+    ref: 'user'
   },
   sitterId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: 'User'
+    ref: 'user'
   },
   start: {
     type: Date,
@@ -28,15 +28,15 @@ const profileSchema = new mongoose.Schema({
     default: false
   },
   paid: {
-    type: Boolean.apply,
+    type: Boolean,
     default: false
   },
   description: {
-    String,
+    type: String,
     default: ""
   }
 }, {
   timestamps: true,
 });
 
-module.exports = Profile = mongoose.model("Profile", profileSchema);
+module.exports = Request = mongoose.model("Request", requestSchema);

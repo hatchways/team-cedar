@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 
 const userSchema = new mongoose.Schema({
+  accountType: {
+    type: String,
+    default: "pet_owner"
+  },
   name: {
     type: String,
     required: true,
