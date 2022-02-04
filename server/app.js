@@ -22,6 +22,8 @@ const availabilityRouter = require("./routes/availability");
 
 
 const notificationRouter = require("./routes/notifications");
+const stripeRouter = require("./routes/stripe");
+const paymentMethodRoute = require('./routes/paymentMethod');
 
 const petSitterRouter = require("./routes/petSitter")
 
@@ -65,7 +67,12 @@ app.use("/availability/schedule", availabilityRouter);
 
 app.use("/request", requestRouter);
 app.use("/notifications", notificationRouter);
+
+app.use("/connect", stripeRouter);
+app.use("/payment_methods", paymentMethodRoute);
+
 app.use("/petsitter", petSitterRouter);
+
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/client/build")));
