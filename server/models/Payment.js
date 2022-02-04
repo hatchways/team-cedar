@@ -6,12 +6,12 @@ const paymentSchema = new mongoose.Schema({
   sitterId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: 'User'
+    ref: 'user'
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: 'User'
+    ref: 'user'
   },
   rate: {
     type: Number,
@@ -38,7 +38,7 @@ const paymentSchema = new mongoose.Schema({
   cancel: {
     type: Boolean,
     default: false
-  },
+  }
 },
   options
 );

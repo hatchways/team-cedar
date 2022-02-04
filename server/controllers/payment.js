@@ -91,3 +91,23 @@ const payment = await Payment.find({userId: req.user.id});
   });
 
 })
+
+exports.getCurrentPayment = asyncHandler(async (req, res, next) => {
+  const payment = await Payment.find({userId: req.user.id , paid: false, cancel: false }).populate("sitterId" ,"name");
+   return res.status(200).json({
+      success: {   
+        payment: payment    
+      }
+    });
+  })
+
+  exports.getPaidPayment = asyncHandler(async (req, res, next) => {
+    const payment = await Payment.find({userId: req.user.id , paid: true, cancel: false }).populate("sitterId" ,"name");
+     return res.status(200).json({
+        success: {   
+          payment: payment    
+        }
+      });
+    })
+    
+  

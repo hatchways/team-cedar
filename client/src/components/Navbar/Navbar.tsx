@@ -48,10 +48,11 @@ const menuItems = [
     canView: [AccountType.PET_OWNER],
     authenticated: true,
   },
+
   {
-    item: 'Messages',
-    resource: '/messages',
-    canView: [AccountType.PET_SITTER, AccountType.PET_OWNER],
+    item: 'Booking',
+    resource: '/bookings',
+    canView: [AccountType.PET_OWNER],
     authenticated: true,
   },
   {
