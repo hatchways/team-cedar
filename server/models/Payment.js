@@ -6,12 +6,12 @@ const paymentSchema = new mongoose.Schema({
   sitterId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: 'User'
+    ref: 'user'
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: 'User'
+    ref: 'user'
   },
   rate: {
     type: Number,
@@ -35,11 +35,15 @@ const paymentSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  cancel: {
+    type: Boolean,
+    default: false
+  }
 },
   options
 );
 
-paymentSchema.virtual("totalPayment ").get(function () {
+paymentSchema.virtual("totalPayment").get(function () {
   return (this.hoursOfService.endTime - this.hoursOfService.startTime) * this.rate
 })
 
