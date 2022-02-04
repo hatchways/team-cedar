@@ -1,16 +1,19 @@
 const User = require("../models/User");
 const Profile = require("../models/Profile");
+const PetSitter = require("../models/PetSitter");
 const { Availability } = require("../models/Availability");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("../utils/generateToken");
-const stripe = require("stripe")(process.env.STRIPE_SECRET);
+const {
+  createStripeCustomer,
+  createStripeAccount,
+} = require("../utils/stripeUtils");
 
 // @route POST /auth/register
 // @desc Register user
 // @access Public
 exports.registerUser = asyncHandler(async (req, res, next) => {
   const { name, email, password } = req.body;
-
   const emailExists = await User.findOne({ email });
 
   if (emailExists) {
@@ -32,15 +35,24 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
   });
 
   if (user) {
-    const stripeCustomerResponse = await stripe.customers.create({
-      name: user.name,
-      email: user.email,
-    });
-    await Profile.create({
-      userId: user._id,
-      stripeCustomerId: stripeCustomerResponse.id,
-      name,
-    });
+    const stripeCustomerResponse = await createStripeCustomer(user);
+
+    if (req.query.accountType === "pet_sitter") {
+      const userAccount = await createStripeAccount(user);
+
+      await PetSitter.create({
+        userId: user._id,
+        name,
+        stripeCustomerId: stripeCustomerResponse.id,
+        stripeAccountId: userAccount.id,
+      });
+    } else {
+      await Profile.create({
+        userId: user._id,
+        name,
+        stripeCustomerId: stripeCustomerResponse.id,
+      });
+    }
 
     const token = generateToken(user._id);
     const secondsInWeek = 604800;

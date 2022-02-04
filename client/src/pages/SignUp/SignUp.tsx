@@ -17,7 +17,8 @@ export default function Register(): JSX.Element {
     { name, email, password }: { email: string; password: string; name: string },
     { setSubmitting }: FormikHelpers<{ email: string; password: string; name: string }>,
   ) => {
-    register(name, email, password).then((data) => {
+    const petSitter = location.search === '?accountType=pet_sitter';
+    register(name, email, password, petSitter).then((data) => {
       if (data.error) {
         console.error({ error: data.error.message });
         setSubmitting(false);
