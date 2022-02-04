@@ -32,7 +32,7 @@ export default function ManageBooking(): JSX.Element {
   }, []);
   useEffect(() => {
     const getNextBookingData = request
-      ?.filter((data) => data.accepted === false && data.declined === false)
+      ?.filter((data) => data.accepted === false && data.declined === false && new Date(data.end) >= new Date())
       .sort((a, b) => {
         return new Date(a.start).getDate() - new Date(b.start).getDate();
       })
@@ -76,13 +76,15 @@ export default function ManageBooking(): JSX.Element {
             <Tab label="Calendar" />
           </Tabs>
           <TabPanel value={value} index={0}>
-            <NextBooking
-              username={nextBooking?.sitterId.name}
-              date={nextBooking?.start}
-              from={nextBooking?.start}
-              to={nextBooking?.end}
-            />
-            <CurrentBooking currentData={currentBooking} pastData={pastBooking} />
+            {nextBooking && (
+              <NextBooking
+                username={nextBooking?.sitterId.name}
+                date={nextBooking?.start}
+                from={nextBooking?.start}
+                to={nextBooking?.end}
+              />
+            )}
+            {currentBooking && <CurrentBooking currentData={currentBooking} pastData={pastBooking} />}
           </TabPanel>
           <TabPanel value={value} index={1}>
             <Calendar nextBookingDate={nextBooking?.start} />
@@ -91,13 +93,15 @@ export default function ManageBooking(): JSX.Element {
       ) : (
         <>
           <Grid xs={12} sm={6} md={7} lg={7} item>
-            <NextBooking
-              username={nextBooking?.sitterId.name}
-              date={nextBooking?.start}
-              from={nextBooking?.start}
-              to={nextBooking?.end}
-            />
-            <CurrentBooking currentData={currentBooking} pastData={pastBooking} />
+            {nextBooking && (
+              <NextBooking
+                username={nextBooking?.sitterId.name}
+                date={nextBooking?.start}
+                from={nextBooking?.start}
+                to={nextBooking?.end}
+              />
+            )}
+            {currentBooking && <CurrentBooking currentData={currentBooking} pastData={pastBooking} />}
           </Grid>
           <Grid xs={12} sm={6} md={5} lg={5} item>
             <Calendar nextBookingDate={nextBooking?.start} />
