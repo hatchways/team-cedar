@@ -50,9 +50,9 @@ app.use("/auth", authRouter);
 app.use("/users", userRouter);
 app.use("/profile", profileRouter);
 app.use("/availability/schedule", availabilityRouter);
-app.use("/request", requestRouter);
 app.use("/notifications", notificationRouter);
 app.use("/connect", stripeRouter);
+app.use("/request", requestRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/client/build")));
