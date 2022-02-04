@@ -34,7 +34,7 @@ const PaymentMethod = ({ header }: PaymentMethodProps): JSX.Element => {
   const handleClose = () => setAddNewPayment(false);
 
   if (getPayment === undefined) return <CircularProgress />;
-  console.log(getPayment);
+  if (profile === undefined || profile === null) return <CircularProgress />;
   return (
     <Grid container>
       <Grid item xs={12}>

@@ -8,21 +8,6 @@ import { Request } from '../../interface/RequestApiData';
 interface CurrentBookingProps {
   currentData: Request[];
   pastData: Request[];
-
-
-type BookingData = {
-  id: number;
-  username: string;
-  date: Date;
-  img?: string;
-  from: number;
-  to: number;
-  period: string;
-  accept: boolean;
-};
-interface CurrentBookingProps {
-  currentData: BookingData[];
-  pastData: BookingData[];
 }
 
 const CurrentBooking = ({ currentData, pastData }: CurrentBookingProps): JSX.Element => {
@@ -49,23 +34,12 @@ const CurrentBooking = ({ currentData, pastData }: CurrentBookingProps): JSX.Ele
         <Box>
           {currentData.map((item) => (
             <BookingContent
-
               key={item?._id}
               username={item?.sitterId.name}
               date={item?.start}
               from={item?.start}
               to={item?.end}
               accept={item?.accepted}
-
-              key={item.id}
-              username={item.username}
-              date={item.date}
-              from={item.from}
-              to={item.to}
-              period={item.period}
-              accept={item.accept}
-              img={item.img}
-
             />
           ))}
         </Box>
@@ -76,21 +50,12 @@ const CurrentBooking = ({ currentData, pastData }: CurrentBookingProps): JSX.Ele
           <Box>
             {pastData.map((item) => (
               <BookingContent
-
                 key={item?._id}
                 username={item?.sitterId.name}
                 date={item?.start}
                 from={item?.start}
                 to={item?.end}
                 accept={item?.accepted}
-                key={item.id}
-                username={item.username}
-                date={item.date}
-                from={item.from}
-                to={item.to}
-                period={item.period}
-                accept={item.accept}
-                img={item.img}
               />
             ))}
           </Box>

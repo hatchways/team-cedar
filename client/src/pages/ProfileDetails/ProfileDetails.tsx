@@ -7,13 +7,11 @@ import ProfileRequest from '../../components/ProfileRequest/ProfileRequest';
 
 import { useAuth } from '../../context/useAuthContext';
 
-
 export default function ProfileDetails(): JSX.Element {
   const [value, setValue] = React.useState(0);
   const matches = useMediaQuery(theme.breakpoints.down('md'));
 
   const { profile } = useAuth();
-
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -33,13 +31,11 @@ export default function ProfileDetails(): JSX.Element {
           }}
         >
           <ProfileDetail
-
             name={profile?.name}
             descrption={profile?.description}
             location={profile?.address}
             photoURL={profile?.photo}
             type={profile?.type}
-
           />
         </Paper>
       </Grid>
@@ -67,13 +63,11 @@ export default function ProfileDetails(): JSX.Element {
                 }}
               >
                 <ProfileDetail
-
                   name={profile?.name}
                   descrption={profile?.description}
                   location={profile?.address}
                   photoURL={profile?.photo}
                   type={profile?.type}
-
                 />
               </Paper>
             </Grid>
@@ -90,9 +84,7 @@ export default function ProfileDetails(): JSX.Element {
                   padding: { xs: 1, sm: 0, md: 2, lg: 2 },
                 }}
               >
-
                 <ProfileRequest rate={profile?.rate} sitterId={profile._id} />
-
               </Paper>
             </Grid>
           </TabPanel>
@@ -111,13 +103,11 @@ export default function ProfileDetails(): JSX.Element {
               }}
             >
               <ProfileDetail
-
                 name={profile?.name}
                 descrption={profile?.description}
                 location={profile?.address}
                 photoURL={profile?.photo}
                 type={profile?.type}
-
               />
             </Paper>
           </Grid>
@@ -133,9 +123,7 @@ export default function ProfileDetails(): JSX.Element {
                 padding: { xs: 1, sm: 0, md: 2, lg: 2 },
               }}
             >
-
               <ProfileRequest rate={profile?.rate} sitterId={profile._id} />
-
             </Paper>
           </Grid>
         </>

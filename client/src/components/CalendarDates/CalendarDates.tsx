@@ -10,8 +10,8 @@ interface CalendarDateProps {
 const CalendarDates: React.FC<CalendarDateProps> = ({ currentMonth, selectedDate, setSelectedDate }) => {
   const monthStart = startOfMonth(currentMonth);
   const monthEnd = endOfMonth(currentMonth);
-  const weekStart = startOfWeek(monthStart, { weekStartsOn: 2 });
-  const weekEnd = endOfWeek(monthEnd, { weekStartsOn: 2 });
+  const weekStart = startOfWeek(monthStart, { weekStartsOn: 6 });
+  const weekEnd = endOfWeek(monthEnd, { weekStartsOn: 5 });
   let date = weekStart;
 
   const dates = [];

@@ -12,7 +12,6 @@ import SettingHeader from '../../components/SettingsHeader/SettingsHeader';
 import PaymentMethod from '../../components/PaymentMethod/PaymentMethod';
 import { AccountType } from '../../types/AccountType';
 
-
 const useStyles = makeStyles({
   activeLink: {
     fontWeight: 700,
@@ -64,12 +63,11 @@ export default function Settings(): JSX.Element {
     // loading for a split seconds until history.push works
     return <CircularProgress />;
   }
-  const filterMenuItems = settingsMenu.filter((item) => item?.canView?.includes(profile?.accountType || 'pet_owner'));
+  const filterMenuItems = settingsMenu.filter((item) => item?.canView?.includes(profile?.type || 'pet_owner'));
   return (
     <PageContainer>
       <Grid sx={{ width: { xs: '90%', sm: '90%', md: '90%', lg: '75%' }, margin: '0 auto' }} container>
-
-         <Grid xs={2} md={3} lg={3} item>
+        <Grid xs={2} md={3} lg={3} item>
           {filterMenuItems.map((item) => (
             <Box
               sx={{
