@@ -38,6 +38,7 @@ const Notificaitons = (): JSX.Element => {
         sx={{
           color: '#212121',
           fontWeight: 700,
+          fontSize: { sm: 22, md: 16, lg: 16 },
           textDecoration: 'none',
           transition: 'color 120ms ease-in-out',
           '&:hover': {
