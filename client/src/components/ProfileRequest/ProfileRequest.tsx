@@ -2,16 +2,38 @@ import { Grid, Typography, Button, Stack, TextField, InputLabel } from '@mui/mat
 import DateTimePicker from '@mui/lab/DateTimePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import { Formik } from 'formik';
+
+import { Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
+import createRequest from '../../helpers/APICalls/createRequest';
+import { useSnackBar } from '../../context/useSnackbarContext';
+import { add } from 'date-fns';
 
 interface ProfileRequestProps {
-  rate: number;
+  rate?: number;
+  sitterId: string;
 }
 
-const ProfileRequest = ({ rate }: ProfileRequestProps): JSX.Element => {
-  const handleSubmit = () => {
-    console.log('todo for an integration ticket');
+const ProfileRequest = ({ rate, sitterId }: ProfileRequestProps): JSX.Element => {
+  const { updateSnackBarMessage } = useSnackBar();
+  const handleSubmit = (
+    { dropIn, dropOff }: { dropIn: Date; dropOff: Date },
+    { setSubmitting }: FormikHelpers<{ dropIn: Date; dropOff: Date }>,
+  ) => {
+    const start = dropIn;
+    const end = dropOff;
+    createRequest({ sitterId, start, end }).then((data) => {
+      if (data.error) {
+        setSubmitting(false);
+        updateSnackBarMessage(data.error.message);
+      } else if (data.success) {
+        updateSnackBarMessage('Request Sent');
+      } else {
+        setSubmitting(false);
+        updateSnackBarMessage('An unexpected error occurred. Please try again');
+      }
+    });
+
   };
   return (
     <Grid container sx={{ p: 2, justifyContent: 'center' }}>
@@ -23,8 +45,10 @@ const ProfileRequest = ({ rate }: ProfileRequestProps): JSX.Element => {
 
       <Formik
         initialValues={{
-          dropIn: new Date(),
-          dropOff: new Date(),
+
+          dropIn: add(new Date(), { hours: 2 }),
+          dropOff: add(new Date(), { hours: 4 }),
+
         }}
         validationSchema={Yup.object().shape({
           dropIn: Yup.date().required('Please enter a dropin date'),
@@ -53,6 +77,9 @@ const ProfileRequest = ({ rate }: ProfileRequestProps): JSX.Element => {
                     onChange={(dropIn) => {
                       setFieldValue('dropIn', dropIn);
                     }}
+
+                    minDateTime={new Date()}
+
                     renderInput={(params) => <TextField fullWidth sx={{ mb: 1, pb: 1 }} id="dropIn" {...params} />}
                   />
                   <InputLabel
@@ -71,6 +98,9 @@ const ProfileRequest = ({ rate }: ProfileRequestProps): JSX.Element => {
                     onChange={(dropOff) => {
                       setFieldValue('dropOff', dropOff);
                     }}
+
+                    minDateTime={new Date()}
+
                     renderInput={(params) => <TextField fullWidth sx={{ mb: 1, pb: 1 }} id="dropOff" {...params} />}
                   />
                 </Stack>
