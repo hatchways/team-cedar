@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import clsx from 'clsx';
-import { useAuth } from '../../context/useAuthContext';
+
 import {
   Button,
   Divider,
@@ -12,7 +11,7 @@ import {
   MenuItem as DropdownMenuItem,
   styled,
 } from '@mui/material';
-
+import { useAuth } from '../../context/useAuthContext';
 import { AccountType } from '../../types/AccountType';
 import lovingSitterLogo from '../../images/logo.svg';
 import lovingSitterLogoSm from '../../images/logoSm.svg';
@@ -20,6 +19,7 @@ import { useStyles } from './useStyles';
 import { NavLink } from 'react-router-dom';
 import { Settings, Logout, Person } from '@mui/icons-material';
 import Notifications from '../Notifications/Notifications';
+import clsx from 'clsx';
 const NavbarButton = styled(Button)({
   padding: '15px 0',
 });
@@ -98,16 +98,8 @@ const MenuItem: React.FC<{
 const Navbar: React.FC = () => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-
-  const { loggedInUser, logout } = useAuth();
   const open = Boolean(anchorEl);
-
-
   const { loggedInUser, profile, logout } = useAuth();
-
-
-  const open = Boolean(anchorEl);
   const getProfileId = profile?._id;
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -122,10 +114,9 @@ const Navbar: React.FC = () => {
     logout();
   };
 
-  const filterMenuItems = menuItems.filter((item) => item?.canView?.includes(profile?.accountType || 'pet_owner'));
+  const filterMenuItems = menuItems.filter((item) => item?.canView?.includes(profile?.type || 'pet_owner'));
 
   const renderMenuItems = () => {
-
     return (
       <>
         {loggedInUser && <Notifications />}
@@ -138,7 +129,6 @@ const Navbar: React.FC = () => {
         })}
       </>
     );
-
   };
 
   return (
@@ -154,7 +144,7 @@ const Navbar: React.FC = () => {
           {renderMenuItems()}
 
           {loggedInUser && profile && (
-             <>
+            <>
               <IconButton
                 size="large"
                 aria-label="account profile picture"
@@ -202,7 +192,6 @@ const Navbar: React.FC = () => {
                 </DropdownMenuItem>
               </Menu>
             </>
-
           )}
         </Grid>
       </Grid>

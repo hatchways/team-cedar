@@ -1,12 +1,12 @@
 import { FetchOptions } from '../../interface/FetchOptions';
-import { RequestApiData } from '../../interface/RequestApiData';
+import { CreateRequestApiData } from '../../interface/CreateRequestApiData';
 
 const createRequest = async (data: {
   sitterId: string;
   start: Date;
   end: Date;
   description?: string;
-}): Promise<RequestApiData> => {
+}): Promise<CreateRequestApiData> => {
   const fetchOptions: FetchOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

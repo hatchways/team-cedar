@@ -6,16 +6,16 @@ interface ProfilePhotoProps {
 
 const ProfilePhoto: React.FC<ProfilePhotoProps> = ({ photoURL }) => {
   return (
-    <Avatar
+    <img
       alt="Profile Image"
-      src={photoURL}
-      sx={(theme) => ({
-        height: theme.spacing(40),
-        width: theme.spacing(40),
-        margin: '0 auto',
-        padding: 1,
-      })}
-
+      src={photoURL ? photoURL : ' https://via.placeholder.com/150'}
+      style={{
+        textAlign: 'center',
+        maxHeight: '100%',
+        maxWidth: '100%',
+        borderRadius: '50%',
+        overflow: 'hidden',
+      }}
     />
   );
 };

@@ -26,14 +26,13 @@ const ProfileRequest = ({ rate, sitterId }: ProfileRequestProps): JSX.Element =>
       if (data.error) {
         setSubmitting(false);
         updateSnackBarMessage(data.error.message);
-      } else if (data.success) {
+      } else if (data?.success) {
         updateSnackBarMessage('Request Sent');
       } else {
         setSubmitting(false);
         updateSnackBarMessage('An unexpected error occurred. Please try again');
       }
     });
-
   };
   return (
     <Grid container sx={{ p: 2, justifyContent: 'center' }}>
@@ -45,10 +44,8 @@ const ProfileRequest = ({ rate, sitterId }: ProfileRequestProps): JSX.Element =>
 
       <Formik
         initialValues={{
-
           dropIn: add(new Date(), { hours: 2 }),
           dropOff: add(new Date(), { hours: 4 }),
-
         }}
         validationSchema={Yup.object().shape({
           dropIn: Yup.date().required('Please enter a dropin date'),
@@ -77,9 +74,7 @@ const ProfileRequest = ({ rate, sitterId }: ProfileRequestProps): JSX.Element =>
                     onChange={(dropIn) => {
                       setFieldValue('dropIn', dropIn);
                     }}
-
                     minDateTime={new Date()}
-
                     renderInput={(params) => <TextField fullWidth sx={{ mb: 1, pb: 1 }} id="dropIn" {...params} />}
                   />
                   <InputLabel
@@ -98,9 +93,7 @@ const ProfileRequest = ({ rate, sitterId }: ProfileRequestProps): JSX.Element =>
                     onChange={(dropOff) => {
                       setFieldValue('dropOff', dropOff);
                     }}
-
                     minDateTime={new Date()}
-
                     renderInput={(params) => <TextField fullWidth sx={{ mb: 1, pb: 1 }} id="dropOff" {...params} />}
                   />
                 </Stack>
