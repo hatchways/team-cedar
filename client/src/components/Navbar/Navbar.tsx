@@ -13,12 +13,11 @@ import {
   styled,
 } from '@mui/material';
 import { AccountType } from '../../types/AccountType';
-
 import lovingSitterLogo from '../../images/logo.svg';
 import { useStyles } from './useStyles';
 import { NavLink, useLocation } from 'react-router-dom';
 import { Settings, Logout, Person } from '@mui/icons-material';
-
+import Notifications from '../Notifications/Notifications';
 const NavbarButton = styled(Button)({
   padding: '15px 0',
 });
@@ -54,6 +53,7 @@ const menuItems = [
     canView: [AccountType.PET_SITTER, AccountType.PET_OWNER],
     authenticated: true,
   },
+
   {
     item: (
       <NavbarButton variant="outlined" size="large" fullWidth>
@@ -117,13 +117,20 @@ const Navbar: React.FC = () => {
   const filterMenuItems = menuItems.filter((item) => item?.canView?.includes(profile?.accountType || 'pet_owner'));
 
   const renderMenuItems = () => {
-    return filterMenuItems.map((menu) => {
-      if (menu.authenticated) {
-        return loggedInUser && <MenuItem key={menu.resource} {...menu} />;
-      } else {
-        return !loggedInUser && <MenuItem key={menu.resource} {...menu} />;
-      }
-    });
+
+    return (
+      <>
+        {loggedInUser && <Notifications />}
+        {filterMenuItems.map((menu) => {
+          if (menu.authenticated) {
+            return loggedInUser && <MenuItem key={menu.resource} {...menu} />;
+          } else {
+            return !loggedInUser && <MenuItem key={menu.resource} {...menu} />;
+          }
+        })}
+      </>
+    );
+
   };
 
   return (

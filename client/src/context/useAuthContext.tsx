@@ -5,8 +5,22 @@ import { User } from '../interface/User';
 import loginWithCookies from '../helpers/APICalls/loginWithCookies';
 import logoutAPI from '../helpers/APICalls/logout';
 
+type profile = {
+  _id: string;
+  name: string;
+  description?: string;
+  address?: string;
+  birthday?: Date;
+  photo?: string;
+  telephone?: string;
+  gender?: string;
+  userId?: string;
+  type?: string;
+  rate?: number;
+};
+
 interface IAuthContext {
-  profile: any;
+  profile: profile | undefined | null;
   loggedInUser: User | null | undefined;
   updateLoginContext: (data: AuthApiDataSuccess) => void;
   logout: () => void;

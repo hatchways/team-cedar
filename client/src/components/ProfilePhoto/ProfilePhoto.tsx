@@ -15,6 +15,7 @@ const ProfilePhoto: React.FC<ProfilePhotoProps> = ({ photoURL }) => {
         margin: '0 auto',
         padding: 1,
       })}
+
     />
   );
 };

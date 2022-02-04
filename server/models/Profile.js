@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const baseOptions = {
-  discriminatorKey: 'profileInfo', 
+  discriminatorKey: 'type', 
 };
 
 const profileSchema = new mongoose.Schema({
@@ -9,6 +9,9 @@ const profileSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: 'User'
+  },
+  stripeCustomerId:{
+    type: Object,
   },
   name: {
     type: String,
