@@ -1,13 +1,21 @@
+import { Avatar } from '@mui/material';
+
 interface ProfilePhotoProps {
   photoURL: string;
 }
 
 const ProfilePhoto: React.FC<ProfilePhotoProps> = ({ photoURL }) => {
   return (
-    <img
+    <Avatar
       alt="Profile Image"
-      style={{ textAlign: 'center', maxHeight: '100%', maxWidth: '100%', borderRadius: '50%', overflow: 'hidden' }}
-      src={photoURL ? photoURL : 'https://via.placeholder.com/150'}
+      src={photoURL}
+      sx={(theme) => ({
+        height: theme.spacing(40),
+        width: theme.spacing(40),
+        margin: '0 auto',
+        padding: 1,
+      })}
+
     />
   );
 };
