@@ -23,6 +23,9 @@ const availabilityRouter = require("./routes/availability");
 
 const notificationRouter = require("./routes/notifications");
 
+const petSitterRouter = require("./routes/petSitter")
+
+
 const { json, urlencoded } = express;
 
 connectDB();
@@ -62,6 +65,7 @@ app.use("/availability/schedule", availabilityRouter);
 
 app.use("/request", requestRouter);
 app.use("/notifications", notificationRouter);
+app.use("/petsitter", petSitterRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/client/build")));
