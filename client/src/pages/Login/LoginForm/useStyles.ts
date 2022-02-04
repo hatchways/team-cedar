@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: '.8rem',
     height: '2rem',
     padding: '5px',
+    [theme.breakpoints.down('sm')]: {
+      width: '50%',
+    },
   },
   forgot: {
     paddingRight: 10,
@@ -28,6 +31,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: 49,
     fontSize: 16,
     fontWeight: 'bold',
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
   },
 }));
 

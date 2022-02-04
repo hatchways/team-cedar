@@ -1,9 +1,9 @@
 import { cloneElement } from 'react';
 import { useAuth } from '../../context/useAuthContext';
 import { NavLink, Redirect, Route, Switch, useHistory } from 'react-router-dom';
-import { Box, CircularProgress, Grid, Link } from '@mui/material';
+import { Box, CircularProgress, Grid, Link, Theme } from '@mui/material';
 import PageContainer from '../../components/PageContainer/PageContainer';
-import { makeStyles } from '@mui/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 import SettingsWrapper from '../../components/SettingsWrapper/SettingsWrapper';
 import EditProfile from './EditProfile/EditProfile';
 import EditProfilePhoto from './EditProfilePhoto/EditProfilePhoto';
@@ -11,6 +11,15 @@ import StripeConnect from '../../components/StripeConnect/StripeConnect';
 import SettingHeader from '../../components/SettingsHeader/SettingsHeader';
 import PaymentMethod from '../../components/PaymentMethod/PaymentMethod';
 import { AccountType } from '../../types/AccountType';
+
+
+const useStyles = makeStyles({
+  activeLink: {
+    fontWeight: 700,
+    color: '#000',
+  },
+});
+
 const settingsMenu = [
   {
     name: 'Edit profile',
@@ -44,13 +53,6 @@ const settingsMenu = [
   },
 ];
 
-const useStyles = makeStyles({
-  activeLink: {
-    fontWeight: 700,
-    color: '#000',
-  },
-});
-
 export default function Settings(): JSX.Element {
   const { loggedInUser, profile } = useAuth();
   const history = useHistory();
@@ -66,7 +68,8 @@ export default function Settings(): JSX.Element {
   return (
     <PageContainer>
       <Grid sx={{ width: { xs: '90%', sm: '90%', md: '90%', lg: '75%' }, margin: '0 auto' }} container>
-        <Grid xs={3} item>
+
+         <Grid xs={2} md={3} lg={3} item>
           {filterMenuItems.map((item) => (
             <Box
               sx={{
@@ -93,7 +96,7 @@ export default function Settings(): JSX.Element {
             </Box>
           ))}
         </Grid>
-        <Grid xs={9} item>
+        <Grid xs={10} md={9} lg={9} item sx={{ p: 2 }}>
           <Switch>
             <Route exact path="/profile/settings">
               <Redirect to="/profile/settings/edit-profile" />

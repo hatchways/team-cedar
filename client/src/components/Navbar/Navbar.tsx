@@ -12,15 +12,19 @@ import {
   MenuItem as DropdownMenuItem,
   styled,
 } from '@mui/material';
+
 import { AccountType } from '../../types/AccountType';
 import lovingSitterLogo from '../../images/logo.svg';
+import lovingSitterLogoSm from '../../images/logoSm.svg';
 import { useStyles } from './useStyles';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Settings, Logout, Person } from '@mui/icons-material';
 import Notifications from '../Notifications/Notifications';
 const NavbarButton = styled(Button)({
   padding: '15px 0',
 });
+
+type Anchor = 'right';
 
 const menuItems = [
   {
@@ -92,9 +96,13 @@ const MenuItem: React.FC<{
 };
 
 const Navbar: React.FC = () => {
-  const location = useLocation();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+
+  const { loggedInUser, logout } = useAuth();
+  const open = Boolean(anchorEl);
+
 
   const { loggedInUser, profile, logout } = useAuth();
 
@@ -134,68 +142,67 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <Grid
-      className={clsx(classes.navbar, location.pathname === '/' && classes.transparentNavbar)}
-      justifyContent="space-between"
-      alignItems="center"
-      container
-    >
-      <Grid xs={4} md={6} item>
-        <img className={classes.navbarLogo} src={lovingSitterLogo} />
+    <Grid className={clsx(classes.navbar)} container>
+      <Grid xs={2} md={6} item>
+        <NavLink to="/dashboard">
+          <img className={classes.navbarLogoLg} style={{ width: 180 }} src={lovingSitterLogo} />
+          <img className={classes.navbarLogoSm} src={lovingSitterLogoSm} />
+        </NavLink>
       </Grid>
-      <Grid xs={8} md={6} item>
+      <Grid xs={10} md={6} item>
         <Grid container alignItems="center" gap={2} justifyContent="flex-end">
           {renderMenuItems()}
+
           {loggedInUser && profile && (
-            <Grid xs={2} item>
-              <>
-                <IconButton
-                  size="large"
-                  aria-label="account profile picture"
-                  aria-controls="menu-navbar"
-                  arais-haspopup="true"
-                  onClick={handleMenuOpen}
-                  color="inherit"
-                >
-                  <img style={{ width: 50 }} src={`https://robohash.org/${loggedInUser.email}`} />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={open}
-                  onClose={handleClose}
-                >
-                  <DropdownMenuItem component={NavLink} to="/profile/settings" onClick={handleClose}>
-                    <ListItemIcon>
-                      <Settings fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Settings</ListItemText>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem component={NavLink} to={`/profile/details/${getProfileId}`} onClick={handleClose}>
-                    <ListItemIcon>
-                      <Person fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Profile</ListItemText>
-                  </DropdownMenuItem>
-                  <Divider />
-                  <DropdownMenuItem onClick={handleLogout}>
-                    <ListItemIcon>
-                      <Logout fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Logout</ListItemText>
-                  </DropdownMenuItem>
-                </Menu>
-              </>
-            </Grid>
+             <>
+              <IconButton
+                size="large"
+                aria-label="account profile picture"
+                aria-controls="menu-navbar"
+                arais-haspopup="true"
+                onClick={handleMenuOpen}
+                color="inherit"
+              >
+                <img style={{ width: 50 }} src={`https://robohash.org/${loggedInUser.email}`} />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'right',
+                }}
+                disableAutoFocusItem
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={open}
+                onClose={handleClose}
+              >
+                <DropdownMenuItem component={NavLink} to="/profile/settings" onClick={handleClose}>
+                  <ListItemIcon>
+                    <Settings fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>Settings</ListItemText>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleClose}>
+                  <ListItemIcon>
+                    <Person fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>Profile</ListItemText>
+                </DropdownMenuItem>
+                <Divider />
+                <DropdownMenuItem onClick={handleLogout}>
+                  <ListItemIcon>
+                    <Logout fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>Logout</ListItemText>
+                </DropdownMenuItem>
+              </Menu>
+            </>
+
           )}
         </Grid>
       </Grid>
