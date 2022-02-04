@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const Profile = require("../models/Profile");
+const { Availability } = require("../models/Availability");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("../utils/generateToken");
 const stripe = require("stripe")(process.env.STRIPE_SECRET);
