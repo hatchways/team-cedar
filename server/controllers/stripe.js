@@ -20,43 +20,39 @@ exports.connect = asyncHandler(async (req, res, next) => {
       ? process.env.PRODUCTION_SITE
       : "http://localhost:3000";
 
-  stripe.account
-    .create({
-      type: "standard",
-      business_type: "individual",
-      country: "CA",
-      default_currency: "cad",
-      company: {
-        name: user.name,
+  const userAccount = await stripe.account.create({
+    type: "standard",
+    business_type: "individual",
+    country: "CA",
+    default_currency: "cad",
+    company: {
+      name: user.name,
+    },
+    email: user.email,
+  });
+
+  if (!userAccount?.id) {
+    res.status(500).json({ error: "Unable to connect to Stripe API" });
+    return next();
+  }
+
+  petsitter.stripeConnectId = userAccount.id;
+  await petsitter.save();
+
+  const stripeAccount = await stripe.accountLinks.create({
+    account: userAccount.id,
+    refresh_url: process.env.REFRESH_URL,
+    return_url: process.env.RETURN_URL,
+    type: "account_onboarding",
+  });
+
+  if (stripeAccount.url) {
+    res.json({
+      success: {
+        stripeAccount,
       },
-      email: user.email,
-    })
-    .then((userAccount) => {
-      petsitter.stripeConnectId = userAccount.id;
-      petsitter.save();
-      return userAccount;
-    })
-    .then((userAccount) => {
-      return stripe.accountLinks.create({
-        account: userAccount.id,
-        refresh_url: process.env.REFRESH_URL,
-        return_url: process.env.RETURN_URL,
-        type: "account_onboarding",
-      });
-    })
-    .then((stripeAccount) => {
-      if (stripeAccount.url) {
-        res.json({
-          success: {
-            stripeAccount,
-          },
-        });
-      } else {
-        res.status(500).json({ error: "Unable to connect to Stripe API" });
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-      next();
     });
+  } else {
+    res.status(500).json({ error: "Unable to connect to Stripe API" });
+  }
 });

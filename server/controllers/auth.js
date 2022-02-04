@@ -3,6 +3,7 @@ const Profile = require("../models/Profile");
 const { Availability } = require("../models/Availability");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("../utils/generateToken");
+const stripe = require("stripe")(process.env.STRIPE_SECRET);
 
 // @route POST /auth/register
 // @desc Register user
@@ -31,8 +32,13 @@ exports.registerUser = asyncHandler(async (req, res, next) => {
   });
 
   if (user) {
+    const stripeCustomerResponse = await stripe.customers.create({
+      name: user.name,
+      email: user.email,
+    });
     await Profile.create({
       userId: user._id,
+      stripeCustomerId: stripeCustomerResponse.id,
       name,
     });
 

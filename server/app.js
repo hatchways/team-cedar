@@ -11,22 +11,14 @@ const logger = require("morgan");
 
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
-
-
 const profileRouter = require('./routes/profile');
 const paymentRouter = require('./routes/payment');
 const requestRouter = require('./routes/request')
-
-
 const availabilityRouter = require("./routes/availability");
-
-
 const notificationRouter = require("./routes/notifications");
 const stripeRouter = require("./routes/stripe");
 const paymentMethodRoute = require('./routes/paymentMethod');
-
 const petSitterRouter = require("./routes/petSitter")
-
 
 const { json, urlencoded } = express;
 
@@ -60,19 +52,14 @@ app.use((req, res, next) => {
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
 app.use("/profile", profileRouter);
-
 app.use("/payments", paymentRouter);
-
 app.use("/availability/schedule", availabilityRouter);
-
-app.use("/request", requestRouter);
 app.use("/notifications", notificationRouter);
-
+app.use("/connect", stripeRouter);
+app.use("/request", requestRouter);
 app.use("/connect", stripeRouter);
 app.use("/payment_methods", paymentMethodRoute);
-
 app.use("/petsitter", petSitterRouter);
-
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/client/build")));
