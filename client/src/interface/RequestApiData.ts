@@ -1,12 +1,18 @@
-export interface RequestApiDataSuccess {
-  userId: string;
-  sitterId: string;
+export interface Request {
+  _id: string;
+  sitterId: {
+    name: string;
+  };
   start: Date;
   end: Date;
-  description?: string;
+  accepted: boolean;
+  declined: boolean;
+  paid: boolean;
+  description: string;
+  updatedAt: Date;
 }
 
 export interface RequestApiData {
+  requests?: Request[];
   error?: { message: string };
-  success?: RequestApiDataSuccess;
 }
