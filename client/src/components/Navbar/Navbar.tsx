@@ -13,12 +13,11 @@ import {
   styled,
 } from '@mui/material';
 import { AccountType } from '../../types/AccountType';
-
 import lovingSitterLogo from '../../images/logo.svg';
 import { useStyles } from './useStyles';
 import { NavLink, useLocation } from 'react-router-dom';
 import { Settings, Logout, Person } from '@mui/icons-material';
-
+import Notifications from '../Notifications/Notifications';
 const NavbarButton = styled(Button)({
   padding: '15px 0',
 });
@@ -54,6 +53,7 @@ const menuItems = [
     canView: [AccountType.PET_SITTER, AccountType.PET_OWNER],
     authenticated: true,
   },
+
   {
     item: (
       <NavbarButton variant="outlined" size="large" fullWidth>
@@ -61,7 +61,7 @@ const menuItems = [
       </NavbarButton>
     ),
     resource: '/login',
-    canView: null,
+    canView: [AccountType.PET_SITTER, AccountType.PET_OWNER],
     authenticated: false,
   },
   {
@@ -71,7 +71,7 @@ const menuItems = [
       </NavbarButton>
     ),
     resource: '/signup',
-    canView: null,
+    canView: [AccountType.PET_SITTER, AccountType.PET_OWNER],
     authenticated: false,
   },
 ];
@@ -95,7 +95,9 @@ const Navbar: React.FC = () => {
   const location = useLocation();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const { loggedInUser, logout, profile } = useAuth();
+
+  const { loggedInUser, profile, logout } = useAuth();
+
   const open = Boolean(anchorEl);
   const getProfileId = profile?._id;
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -111,15 +113,21 @@ const Navbar: React.FC = () => {
     logout();
   };
 
+  const filterMenuItems = menuItems.filter((item) => item?.canView?.includes(profile?.accountType || 'pet_owner'));
+
   const renderMenuItems = () => {
-    // TODO: conditionally render based on profile type
-    return menuItems.map((menu) => {
-      if (menu.authenticated) {
-        return loggedInUser && <MenuItem key={menu.resource} {...menu} />;
-      } else {
-        return !loggedInUser && <MenuItem key={menu.resource} {...menu} />;
-      }
-    });
+    return (
+      <>
+        {loggedInUser && <Notifications />}
+        {filterMenuItems.map((menu) => {
+          if (menu.authenticated) {
+            return loggedInUser && <MenuItem key={menu.resource} {...menu} />;
+          } else {
+            return !loggedInUser && <MenuItem key={menu.resource} {...menu} />;
+          }
+        })}
+      </>
+    );
   };
 
   return (
