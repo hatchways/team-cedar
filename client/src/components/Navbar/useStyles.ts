@@ -1,15 +1,14 @@
-import { Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import { theme } from '../../themes/theme';
 
-export const useStyles = makeStyles((theme: Theme) => ({
+export const useStyles = makeStyles(() => ({
   navbar: {
     boxShadow: '4px 4px 13px 7px rgba(217,217,217,0.26)',
     padding: theme.spacing(2),
     background: 'white',
-  },
-  transparentNavbar: {
-    boxShadow: 'none',
-    background: 'none',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    minWidth: 800,
   },
   navbarItem: {
     color: theme.palette.grey[900],
@@ -19,8 +18,22 @@ export const useStyles = makeStyles((theme: Theme) => ({
     '&:hover': {
       color: theme.palette.primary.main,
     },
+    fontSize: 16,
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 22,
+    },
   },
-  navbarLogo: {
-    width: 180,
+
+  navbarLogoLg: {
+    display: 'none',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
+    },
+  },
+  navbarLogoSm: {
+    display: 'block',
+    [theme.breakpoints.up('sm')]: {
+      display: 'none',
+    },
   },
 }));

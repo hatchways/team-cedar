@@ -35,11 +35,15 @@ const paymentSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  cancel: {
+    type: Boolean,
+    default: false
+  },
 },
   options
 );
 
-paymentSchema.virtual("totalPayment ").get(function () {
+paymentSchema.virtual("totalPayment").get(function () {
   return (this.hoursOfService.endTime - this.hoursOfService.startTime) * this.rate
 })
 

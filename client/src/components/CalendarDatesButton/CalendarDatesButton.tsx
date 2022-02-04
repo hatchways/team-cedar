@@ -1,6 +1,8 @@
 import React, { MouseEvent } from 'react';
-import { ToggleButton, ToggleButtonGroup } from '@mui/material';
+
+import { ToggleButton, ToggleButtonGroup, useMediaQuery } from '@mui/material';
 import { format } from 'date-fns';
+import { theme } from '../../themes/theme';
 
 interface CalendarWrapperProps {
   date: Date;
@@ -10,6 +12,8 @@ interface CalendarWrapperProps {
 }
 
 const CalendarDatesButton: React.FC<CalendarWrapperProps> = ({ date, currentMonth, selectedDate, setSelectedDate }) => {
+  const matches = useMediaQuery(theme.breakpoints.down('lg'));
+
   const currentDate = format(new Date(), 'yyyy-MM-dd');
   const formatDateByYear = format(date, 'yyyy-MM-dd');
   const formatDate = format(date, 'd');
@@ -31,34 +35,65 @@ const CalendarDatesButton: React.FC<CalendarWrapperProps> = ({ date, currentMont
       }}
       color="primary"
     >
-      <ToggleButton
-        disabled={formatCurrentMonth !== formatDatesMonth}
-        sx={{
-          border: 'none',
-          ':hover': {
-            color: 'white',
-            bgcolor: 'primary.main',
-            borderRadius: '100%',
-          },
-          width: 30,
-          height: 30,
-          fontSize: 12,
-          color: 'text.primary',
-          '&.Mui-selected': {
-            color: 'white',
-            bgcolor: 'primary.main',
-            borderRadius: '100%',
-          },
-          '&.Mui-disabled': {
+      {matches ? (
+        <ToggleButton
+          disabled={formatCurrentMonth !== formatDatesMonth}
+          sx={{
             border: 'none',
-          },
-        }}
-        value={date}
-        onClick={handleSelectDate}
-        selected={currentDate === formatDateByYear || date === selectedDate}
-      >
-        {formatDate}
-      </ToggleButton>
+            ':hover': {
+              color: 'white',
+              bgcolor: 'primary.main',
+              borderRadius: '100%',
+            },
+            width: 30,
+            height: 30,
+            fontSize: 12,
+            color: 'text.primary',
+            '&.Mui-selected': {
+              color: 'white',
+              bgcolor: 'primary.main',
+              borderRadius: '100%',
+            },
+            '&.Mui-disabled': {
+              border: 'none',
+            },
+          }}
+          value={date}
+          onClick={handleSelectDate}
+          selected={currentDate === formatDateByYear || date === selectedDate}
+        >
+          {formatDate}
+        </ToggleButton>
+      ) : (
+        <ToggleButton
+          disabled={formatCurrentMonth !== formatDatesMonth}
+          sx={{
+            border: 'none',
+            ':hover': {
+              color: 'white',
+              bgcolor: 'primary.main',
+              borderRadius: '100%',
+            },
+            width: 30,
+            height: 30,
+            fontSize: 12,
+            color: 'text.primary',
+            '&.Mui-selected': {
+              color: 'white',
+              bgcolor: 'primary.main',
+              borderRadius: '100%',
+            },
+            '&.Mui-disabled': {
+              border: 'none',
+            },
+          }}
+          value={date}
+          onClick={handleSelectDate}
+          selected={currentDate === formatDateByYear || date.valueOf() === selectedDate.valueOf()}
+        >
+          {formatDate}
+        </ToggleButton>
+      )}
     </ToggleButtonGroup>
   );
 };
