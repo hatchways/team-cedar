@@ -98,6 +98,7 @@ const Navbar: React.FC = () => {
 
   const { loggedInUser, profile, logout } = useAuth();
 
+
   const open = Boolean(anchorEl);
   const getProfileId = profile?._id;
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -116,6 +117,7 @@ const Navbar: React.FC = () => {
   const filterMenuItems = menuItems.filter((item) => item?.canView?.includes(profile?.accountType || 'pet_owner'));
 
   const renderMenuItems = () => {
+
     return (
       <>
         {loggedInUser && <Notifications />}
@@ -128,6 +130,7 @@ const Navbar: React.FC = () => {
         })}
       </>
     );
+
   };
 
   return (
